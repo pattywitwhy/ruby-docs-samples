@@ -28,7 +28,6 @@ RSpec.configure do |config|
 end
 
 describe "Datastore Quickstart" do
-
   it "creates a new entity" do
     datastore = Google::Cloud::Datastore.new
     task_key  = datastore.key "Task", "sampletask1"
@@ -38,20 +37,19 @@ describe "Datastore Quickstart" do
       datastore.delete task
     end
 
-    expect(datastore.find task_key).to be nil
-    expect(Google::Cloud::Datastore).to receive(:new).
-                                        with(project: "YOUR_PROJECT_ID").
-                                        and_return(datastore)
+    expect(datastore.find(task_key)).to be nil
+    expect(Google::Cloud::Datastore).to receive(:new)
+      .with(project: "YOUR_PROJECT_ID")
+      .and_return(datastore)
 
-    expect {
+    expect do
       load File.expand_path("../quickstart.rb", __dir__)
-    }.to output {
+    end.to output {
       "Saved Task: Buy milk\n"
     }.to_stdout
 
-    task_key = datastore.find(task_key)
+    task_key = datastore.find task_key
     expect(task_key).not_to be nil
     expect(task_key["description"]).to eq "Buy milk"
   end
-
 end

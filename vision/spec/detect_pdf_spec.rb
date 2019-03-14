@@ -18,7 +18,6 @@ require "google/cloud/storage"
 require_relative "../detect_pdf"
 
 describe "Detect Document Text from PDF" do
-
   before do
     @storage    = Google::Cloud::Storage.new
     @bucket     = @storage.bucket ENV["GOOGLE_CLOUD_STORAGE_BUCKET"]
@@ -33,10 +32,10 @@ describe "Detect Document Text from PDF" do
     storage_file = @bucket.upload_file document_path("pdf_ocr.pdf"),
                                        "pdf_ocr.pdf"
 
-    expect {
+    expect do
       detect_pdf_gcs gcs_source_uri:      storage_file.to_gs_url,
                      gcs_destination_uri: "gs://#{@bucket.name}/prefix_"
-    }.to output(
+    end.to output(
       /A Simple PDF File/
     ).to_stdout
   end

@@ -18,16 +18,15 @@ require "google/cloud/storage"
 require_relative "../detect_landmarks"
 
 describe "Detect Landmarks" do
-
   # Returns full path to sample image included in repository for testing
   def image_path filename
     File.expand_path "../resources/#{filename}", __dir__
   end
 
   example "detect landmarks from local image file" do
-    expect {
+    expect do
       detect_landmarks image_path: image_path("palace_of_fine_arts.jpg")
-    }.to output(
+    end.to output(
       /Palace/
     ).to_stdout
   end
@@ -35,9 +34,9 @@ describe "Detect Landmarks" do
   example "detect landmarks from image file in Google Cloud Storage" do
     gcs_uri = "gs://cloud-samples-data/vision/palace_of_fine_arts.jpg"
 
-    expect {
+    expect do
       detect_landmarks_gcs image_path: gcs_uri
-    }.to output(
+    end.to output(
       /Palace/
     ).to_stdout
   end

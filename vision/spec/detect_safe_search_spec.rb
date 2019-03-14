@@ -18,7 +18,6 @@ require "google/cloud/storage"
 require_relative "../detect_safe_search"
 
 describe "Detect Safe Search Properties" do
-
   before do
     @storage    = Google::Cloud::Storage.new
     @bucket     = @storage.bucket ENV["GOOGLE_CLOUD_STORAGE_BUCKET"]
@@ -30,9 +29,9 @@ describe "Detect Safe Search Properties" do
   end
 
   example "detect safe search properties from local image file" do
-    expect {
+    expect do
       detect_safe_search image_path: image_path("otter_crossing.jpg")
-    }.to output(
+    end.to output(
       /Violence: VERY_UNLIKELY/
     ).to_stdout
   end
@@ -41,9 +40,9 @@ describe "Detect Safe Search Properties" do
     storage_file = @bucket.upload_file image_path("otter_crossing.jpg"),
                                        "otter_crossing.jpg"
 
-    expect {
+    expect do
       detect_safe_search_gcs image_path: storage_file.to_gs_url
-    }.to output(
+    end.to output(
       /Violence: VERY_UNLIKELY/
     ).to_stdout
   end

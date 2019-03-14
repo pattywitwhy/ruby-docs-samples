@@ -15,12 +15,12 @@
 # [START vision_product_search_add_product_to_product_set]
 require "google/cloud/vision"
 
-def product_search_add_product_to_product_set(
+def product_search_add_product_to_product_set \
     project_id     = "your-project-id",
     location       = "us-west1",
     product_id     = "your-product-id",
     product_set_id = "your-product-set-id"
-  )
+
   client = Google::Cloud::Vision::ProductSearch.new
 
   # Get the full path of the product set.
@@ -38,4 +38,4 @@ def product_search_add_product_to_product_set(
 end
 # [END vision_product_search_add_product_to_product_set]
 
-product_search_add_product_to_product_set *ARGV if $PROGRAM_NAME == __FILE__
+product_search_add_product_to_product_set(*ARGV) if $PROGRAM_NAME == __FILE__

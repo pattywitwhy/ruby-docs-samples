@@ -18,7 +18,6 @@ require "google/cloud/dialogflow"
 require_relative "../detect_intent_audio"
 
 describe "Detect Intent Audio" do
-
   before do
     @project_id      = ENV["GOOGLE_CLOUD_PROJECT"]
     @session_id      = "session-for-testing"
@@ -27,12 +26,12 @@ describe "Detect Intent Audio" do
   end
 
   example "detect intent from audio" do
-    expect {
-      detect_intent_audio project_id: @project_id,
-                          session_id: @session_id,
+    expect do
+      detect_intent_audio project_id:      @project_id,
+                          session_id:      @session_id,
                           audio_file_path: @audio_file_path,
-                          language_code: @language_code
-    }.to output(
+                          language_code:   @language_code
+    end.to output(
       /Where would you like to reserve a room?/
     ).to_stdout
   end

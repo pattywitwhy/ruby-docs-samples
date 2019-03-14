@@ -18,7 +18,6 @@ require "google/cloud/storage"
 require_relative "../detect_faces"
 
 describe "Detect Faces" do
-
   before do
     @storage    = Google::Cloud::Storage.new
     @bucket     = @storage.bucket ENV["GOOGLE_CLOUD_STORAGE_BUCKET"]
@@ -30,9 +29,9 @@ describe "Detect Faces" do
   end
 
   example "detect faces from local image file" do
-    expect {
+    expect do
       detect_faces image_path: image_path("face_no_surprise.png")
-    }.to output(
+    end.to output(
       /Surprise: VERY_UNLIKELY/
     ).to_stdout
   end
@@ -41,9 +40,9 @@ describe "Detect Faces" do
     storage_file = @bucket.upload_file image_path("face_surprise.jpg"),
                                        "face_surprise.jpg"
 
-    expect {
+    expect do
       detect_faces_gcs image_path: storage_file.to_gs_url
-    }.to output(
+    end.to output(
       /Surprise: LIKELY/
     ).to_stdout
   end

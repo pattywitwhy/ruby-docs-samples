@@ -18,7 +18,6 @@ require "google/cloud/dialogflow"
 require_relative "../detect_intent_texts"
 
 describe "Detect Intent Texts" do
-
   before do
     @project_id = ENV["GOOGLE_CLOUD_PROJECT"]
     @session_id = "session-for-testing"
@@ -28,12 +27,12 @@ describe "Detect Intent Texts" do
   end
 
   example "detect intent from texts" do
-    expect {
-      detect_intent_texts project_id: @project_id,
-                          session_id: @session_id,
-                          texts: @texts,
+    expect do
+      detect_intent_texts project_id:    @project_id,
+                          session_id:    @session_id,
+                          texts:         @texts,
                           language_code: @language_code
-    }.to output(
+    end.to output(
       /All set!/
     ).to_stdout
   end

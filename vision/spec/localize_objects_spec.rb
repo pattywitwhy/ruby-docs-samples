@@ -18,7 +18,6 @@ require "google/cloud/storage"
 require_relative "../localize_objects"
 
 describe "Localize Objects" do
-
   before do
     @storage    = Google::Cloud::Storage.new
     @bucket     = @storage.bucket ENV["GOOGLE_CLOUD_STORAGE_BUCKET"]
@@ -30,9 +29,9 @@ describe "Localize Objects" do
   end
 
   example "localize objects from local image file" do
-    expect {
+    expect do
       localize_objects image_path: image_path("puppies.jpg")
-    }.to output(
+    end.to output(
       /Dog/
     ).to_stdout
   end
@@ -41,9 +40,9 @@ describe "Localize Objects" do
     storage_file = @bucket.upload_file image_path("puppies.jpg"),
                                        "puppies.jpg"
 
-    expect {
+    expect do
       localize_objects_gs image_path: storage_file.to_gs_url
-    }.to output(
+    end.to output(
       /Dog/
     ).to_stdout
   end

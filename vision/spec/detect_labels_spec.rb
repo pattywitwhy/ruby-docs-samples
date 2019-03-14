@@ -18,7 +18,6 @@ require "google/cloud/storage"
 require_relative "../detect_labels"
 
 describe "Detect Labels" do
-
   before do
     @storage    = Google::Cloud::Storage.new
     @bucket     = @storage.bucket ENV["GOOGLE_CLOUD_STORAGE_BUCKET"]
@@ -30,9 +29,9 @@ describe "Detect Labels" do
   end
 
   example "detect labels from local image file" do
-    expect {
+    expect do
       detect_labels image_path: image_path("otter_crossing.jpg")
-    }.to output(
+    end.to output(
       /traffic sign/i
     ).to_stdout
   end
@@ -41,14 +40,14 @@ describe "Detect Labels" do
     storage_file = @bucket.upload_file image_path("otter_crossing.jpg"),
                                        "otter_crossing.jpg"
 
-    expect {
+    expect do
       detect_labels_gcs image_path: storage_file.to_gs_url
-    }.to output(
+    end.to output(
       /traffic sign/i
     ).to_stdout
 
-    expect {
+    expect do
       detect_labels_gcs_migration
-    }.to output(/suit/i).to_stdout
+    end.to output(/suit/i).to_stdout
   end
 end

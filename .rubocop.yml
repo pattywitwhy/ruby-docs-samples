@@ -1,0 +1,39 @@
+inherit_gem:
+  google-style: google-style.yml
+AllCops:
+  Exclude:
+    - "**/spec/**"
+Lint/RescueException:
+  Exclude:
+    - "pubsub/subscriptions.rb"
+    - "appengine/sendgrid/app.rb"
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+Lint/UselessAssignment:
+  Enabled: false
+Naming/AccessorMethodName:
+  Exclude:
+    - "firestore/add_data.rb"
+Style/BlockComments:
+  Exclude:
+    - "**/routes.rb"
+Style/GlobalVars:
+  Exclude:
+    - "kms/kms.rb"
+    - "iot/iot.rb"
+Style/MixinUsage:
+  Exclude:
+    - "appengine/rails*/**/*"
+
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Style/Documentation:
+  Enabled: false

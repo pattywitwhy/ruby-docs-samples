@@ -29,11 +29,10 @@ end
 
 describe "Cloud Job Discovery Quickstart" do
   it "can list companies" do
-    expect {
+    expect do
       load File.expand_path("../quickstart.rb", __dir__)
-    }.to output(
+    end.to output(
       /Request id.*/
     ).to_stdout
   end
 end
-

@@ -18,7 +18,6 @@ require "google/cloud/speech"
 require "google/cloud/storage"
 
 describe "Google Cloud Speech API samples" do
-
   before do
     @bucket_name = ENV["GOOGLE_CLOUD_STORAGE_BUCKET"]
     @storage     = Google::Cloud::Storage.new
@@ -34,10 +33,10 @@ describe "Google Cloud Speech API samples" do
   end
 
   # Capture and return STDOUT output by block
-  def capture &block
+  def capture
     real_stdout = $stdout
     $stdout = StringIO.new
-    block.call
+    yield
     @captured_output = $stdout.string
   ensure
     $stdout = real_stdout
@@ -45,9 +44,9 @@ describe "Google Cloud Speech API samples" do
   attr_reader :captured_output
 
   example "transcribe audio file" do
-    expect {
+    expect do
       speech_sync_recognize audio_file_path: @audio_file_path
-    }.to output("Transcription: #{@audio_file_transcript}\n").to_stdout
+    end.to output("Transcription: #{@audio_file_transcript}\n").to_stdout
   end
 
   example "transcribe audio file with words" do
@@ -68,24 +67,24 @@ describe "Google Cloud Speech API samples" do
     file = @bucket.upload_file @audio_file_path, "audio.raw"
     path = "gs://#{file.bucket}/audio.raw"
 
-    expect {
+    expect do
       speech_sync_recognize_gcs storage_path: path
-    }.to output("Transcription: #{@audio_file_transcript}\n").to_stdout
+    end.to output("Transcription: #{@audio_file_transcript}\n").to_stdout
   end
 
   example "async operation to transcribe audio file" do
-    expect {
+    expect do
       speech_async_recognize audio_file_path: @audio_file_path
-    }.to output("Operation started\nTranscription: #{@audio_file_transcript}\n").to_stdout
+    end.to output("Operation started\nTranscription: #{@audio_file_transcript}\n").to_stdout
   end
 
   example "async operation to transcribe audio file from GCS" do
     file = @bucket.upload_file @audio_file_path, "audio.raw"
     path = "gs://#{file.bucket}/audio.raw"
 
-    expect {
+    expect do
       speech_async_recognize_gcs storage_path: path
-    }.to output("Operation started\nTranscription: #{@audio_file_transcript}\n").to_stdout
+    end.to output("Operation started\nTranscription: #{@audio_file_transcript}\n").to_stdout
   end
 
   example "async operation to transcribe audio file from GCS with words" do
@@ -107,31 +106,31 @@ describe "Google Cloud Speech API samples" do
   end
 
   example "streaming operation to transcribe audio file" do
-    expect {
+    expect do
       speech_streaming_recognize audio_file_path: @audio_file_path
-    }.to output(
+    end.to output(
       /how old is the Brooklyn Bridge/
     ).to_stdout
   end
 
   example "transcribe audio file with automatic punctuation" do
     audio_file_path = File.expand_path "../resources/commercial_mono.wav", __dir__
-    expect {
+    expect do
       speech_transcribe_auto_punctuation audio_file_path: audio_file_path
-    }.to output(/Okay. Sure./).to_stdout
+    end.to output(/Okay. Sure./).to_stdout
   end
 
   example "transcribe audio file with enhanced phone call model" do
     audio_file_path = File.expand_path "../resources/commercial_mono.wav", __dir__
-    expect {
+    expect do
       speech_transcribe_enhanced_model audio_file_path: audio_file_path
-    }.to output(/Chrome/).to_stdout
+    end.to output(/Chrome/).to_stdout
   end
 
   example "transcribe audio file with enhanced video model" do
     video_file_path = File.expand_path "../resources/Google_Gnome.wav", __dir__
-    expect {
+    expect do
       speech_transcribe_model_selection file_path: video_file_path, model: "video"
-    }.to output(/the weather outside is sunny/).to_stdout
+    end.to output(/the weather outside is sunny/).to_stdout
   end
 end

@@ -79,9 +79,7 @@ def entities_from_text text_content:
   entities.each do |entity|
     puts "Entity #{entity.name} #{entity.type}"
 
-    if entity.metadata["wikipedia_url"]
-      puts "URL: #{entity.metadata['wikipedia_url']}"
-    end
+    puts "URL: #{entity.metadata['wikipedia_url']}" if entity.metadata["wikipedia_url"]
   end
   # [END language_entities_text]
 end
@@ -100,9 +98,7 @@ def entities_from_cloud_storage_file storage_path:
   entities.each do |entity|
     puts "Entity #{entity.name} #{entity.type}"
 
-    if entity.metadata["wikipedia_url"]
-      puts "URL: #{entity.metadata['wikipedia_url']}"
-    end
+    puts "URL: #{entity.metadata['wikipedia_url']}" if entity.metadata["wikipedia_url"]
   end
   # [END language_entities_gcs]
 end
@@ -184,7 +180,7 @@ def classify_text_from_cloud_storage_file storage_path:
 end
 
 
-if __FILE__ == $PROGRAM_NAME
+if $PROGRAM_NAME == __FILE__
 
   if ARGV.length == 1
     puts "Sentiment:"

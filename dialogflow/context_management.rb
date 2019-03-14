@@ -25,24 +25,20 @@ def list_contexts project_id:, session_id:
   contexts_client = Google::Cloud::Dialogflow::Contexts.new
   session_path = contexts_client.class.session_path project_id, session_id
 
-  contexts = contexts_client.list_contexts(session_path)
+  contexts = contexts_client.list_contexts session_path
 
   puts "Contexts for session #{session_path}:\n\n"
   contexts.each do |context|
     puts "Context name:   #{context.name}"
     puts "Lifespan count: #{context.lifespan_count}"
-    if context.parameters
-      puts "Fields:"
-      context.parameters.fields.each do |field, value|
-        if value.string_value
-          puts "\t#{field}: #{value.string_value}"
-        end
-      end
+    next unless context.parameters
+    puts "Fields:"
+    context.parameters.fields.each do |field, value|
+      puts "\t#{field}: #{value.string_value}" if value.string_value
     end
   end
   # [END dialogflow_list_contexts]
 end
-
 
 def create_context project_id:, session_id:, context_id:
   # [START dialogflow_create_context]
@@ -66,7 +62,6 @@ def create_context project_id:, session_id:, context_id:
   # [END dialogflow_create_context]
 end
 
-
 def delete_context project_id:, session_id:, context_id:
   # [START dialogflow_delete_context]
   # project_id = "Your Google Cloud project ID"
@@ -85,7 +80,7 @@ def delete_context project_id:, session_id:, context_id:
 end
 
 
-if __FILE__ == $PROGRAM_NAME
+if $PROGRAM_NAME == __FILE__
   project_id = ENV["GOOGLE_CLOUD_PROJECT"]
   case ARGV.shift
   when "list"
@@ -100,16 +95,16 @@ if __FILE__ == $PROGRAM_NAME
                    session_id: ARGV.shift,
                    context_id: ARGV.shift
   else
-    puts <<-usage
-Usage: ruby context_management.rb [commang] [arguments]
+    puts <<~USAGE
+      Usage: ruby context_management.rb [commang] [arguments]
 
-Commands:
-  list                              List all contexts
-  create  <session_id>              Create a context for a session
-  delete  <sessino_id> <context_id> Delete a context
+      Commands:
+        list                              List all contexts
+        create  <session_id>              Create a context for a session
+        delete  <sessino_id> <context_id> Delete a context
 
-Environment variables:
-  GOOGLE_CLOUD_PROJECT must be set to your Google Cloud project ID
-    usage
+      Environment variables:
+        GOOGLE_CLOUD_PROJECT must be set to your Google Cloud project ID
+    USAGE
   end
 end

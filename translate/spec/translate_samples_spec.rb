@@ -17,16 +17,15 @@ require "rspec"
 require "google/cloud/translate"
 
 describe "Google Translate API samples" do
-
   before do
     @project_id = Google::Cloud::Translate.new.project
   end
 
   # Capture and return STDOUT output by block
-  def capture &block
+  def capture
     real_stdout = $stdout
     $stdout     = StringIO.new
-    block.call
+    yield
     @captured_output = $stdout.string
   ensure
     $stdout = real_stdout
@@ -42,7 +41,7 @@ describe "Google Translate API samples" do
 
     expect(captured_output).to include "Original language: en translated to: fr"
     expect(captured_output).to include(
-      %{Translated 'Alice and Bob are kind' to '"Alice et Bob sont gentils"'}
+      %(Translated 'Alice and Bob are kind' to '"Alice et Bob sont gentils"')
     )
   end
 
@@ -55,14 +54,14 @@ describe "Google Translate API samples" do
 
     expect(captured_output).to include "Original language: en translated to: fr"
     expect(captured_output).to include(
-      %{Translated 'Alice and Bob are kind' to '"Alice et Bob sont gentils"'}
+      %(Translated 'Alice and Bob are kind' to '"Alice et Bob sont gentils"')
     )
   end
 
   example "detect language" do
-    expect {
+    expect do
       detect_language project_id: @project_id, text: "Sample text written in English"
-    }.to output(
+    end.to output(
       /'Sample text written in English' detected as language: en/
     ).to_stdout
   end

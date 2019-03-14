@@ -28,27 +28,23 @@ RSpec.configure do |config|
 end
 
 describe "PubSub Quickstart" do
-
   it "creates a new topic" do
     pubsub = Google::Cloud::Pubsub.new
 
-    if pubsub.topic "my-new-topic"
-      pubsub.topic("my-new-topic").delete
-    end
+    pubsub.topic("my-new-topic")&.delete
 
-    expect(pubsub.topic "my-new-topic").to be nil
-    expect(Google::Cloud::Pubsub).to receive(:new).
-                                     with(project: "YOUR_PROJECT_ID").
-                                     and_return(pubsub)
+    expect(pubsub.topic("my-new-topic")).to be nil
+    expect(Google::Cloud::Pubsub).to receive(:new)
+      .with(project: "YOUR_PROJECT_ID")
+      .and_return(pubsub)
 
-    expect {
+    expect do
       load File.expand_path("../quickstart.rb", __dir__)
-    }.to output(
-      "Topic projects/#{pubsub.project}/" +
+    end.to output(
+      "Topic projects/#{pubsub.project}/" \
       "topics/my-new-topic created.\n"
     ).to_stdout
 
-    expect(pubsub.topic "my-new-topic").not_to be nil
-   end
-
+    expect(pubsub.topic("my-new-topic")).not_to be nil
+  end
 end

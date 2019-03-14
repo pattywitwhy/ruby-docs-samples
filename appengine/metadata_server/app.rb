@@ -18,14 +18,14 @@ require "net/http"
 
 get "/" do
   uri = URI.parse(
-    "http://metadata.google.internal/computeMetadata/v1" +
+    "http://metadata.google.internal/computeMetadata/v1" \
     "/instance/network-interfaces/0/access-configs/0/external-ip"
   )
 
   request = Net::HTTP::Get.new uri.path
   request.add_field "Metadata-Flavor", "Google"
 
-  http = Net::HTTP.new(uri.host, uri.port)
+  http = Net::HTTP.new uri.host, uri.port
 
   response = http.request request
 

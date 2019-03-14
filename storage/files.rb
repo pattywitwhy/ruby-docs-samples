@@ -100,7 +100,7 @@ def upload_encrypted_file project_id:, bucket_name:, local_file_path:,
 end
 
 def upload_with_kms_key project_id:, bucket_name:, local_file_path:,
-                          storage_file_path: nil, kms_key:
+                        storage_file_path: nil, kms_key:
   # [START storage_upload_with_kms_key]
   # project_id        = "Your Google Cloud project ID"
   # bucket_name       = "Your Google Cloud Storage bucket name"
@@ -239,7 +239,7 @@ def list_file_details project_id:, bucket_name:, file_name:
   puts "Generation: #{file.generation}"
   puts "Metageneration: #{file.metageneration}"
   puts "Etag: #{file.etag}"
-  puts "Owners: #{file.acl.owners.join ","}"
+  puts "Owners: #{file.acl.owners.join ','}"
   puts "Crc32c: #{file.crc32c}"
   puts "md5_hash: #{file.md5}"
   puts "Cache-control: #{file.cache_control}"
@@ -324,7 +324,7 @@ def rename_file project_id:, bucket_name:, file_name:, new_name:
 end
 
 def copy_file project_id:, source_bucket_name:, source_file_name:,
-                             dest_bucket_name:,   dest_file_name:
+              dest_bucket_name:, dest_file_name:
   # [START copy_file]
   # project_id         = "Your Google Cloud project ID"
   # source_bucket_name = "Source bucket to copy file from"
@@ -341,7 +341,7 @@ def copy_file project_id:, source_bucket_name:, source_file_name:,
   destination_bucket = storage.bucket dest_bucket_name
   destination_file   = file.copy destination_bucket.name, dest_file_name
 
-  puts "#{file.name} in #{bucket.name} copied to " +
+  puts "#{file.name} in #{bucket.name} copied to " \
        "#{destination_file.name} in #{destination_bucket.name}"
   # [END copy_file]
 end
@@ -555,37 +555,35 @@ def run_sample arguments
                            bucket_name: arguments.shift,
                            file_name:   arguments.shift
   else
-    puts <<-usage
-Usage: bundle exec ruby files.rb [command] [arguments]
+    puts <<~USAGE
+      Usage: bundle exec ruby files.rb [command] [arguments]
 
-Commands:
-  list                 <bucket>                                     List all files in the bucket
-  upload               <bucket> <file> <dest_path>                  Upload local file to a bucket
-  encrypted_upload     <bucket> <file> <dest_path> <encryption_key> Upload local file as an encrypted file to a bucket
-  kms_upload           <bucket> <file> <dest_path> <kms_key>        Upload local file and encrypt service side using a KMS key
-  download             <bucket> <file> <path>                       Download a file from a bucket
-  download_public_file <bucket> <file> <path>                       Download a publically accessible file from a bucket
-  encrypted_download <bucket> <file> <path> <encryption_key>        Download an encrypted file from a bucket
-  download_with_requester_pays <project> <bucket> <file> <path>     Download a file from a requester pays enabled bucket
-  rotate_encryption_key <bucket> <file> <base64_current_encryption_key> <base64_new_encryption_key> Update encryption key of an encrypted file.
-  generate_encryption_key                                           Generate a sample encryption key
-  delete       <bucket> <file>                                      Delete a file from a bucket
-  metadata     <bucket> <file>                                      Display metadata for a file in a bucket
-  make_public  <bucket> <file>                                      Make a file in a bucket public
-  rename       <bucket> <file> <new>                                Rename a file in a bucket
-  copy <srcBucket> <srcFile> <destBucket> <destFile>                Copy file to other bucket
-  generate_signed_url <bucket> <file>                               Generate a signed url for a file
-  set_event_based_hold     <bucket> <file>                          Set an event-based hold on a file
-  release_event_based_hold <bucket> <file>                          Relase an event-based hold on a file
-  set_temporary_hold       <bucket> <file>                          Set a temporary hold on a file
-  release_temporary_hold   <bucket> <file>                          Release a temporary hold on a file
+      Commands:
+        list                 <bucket>                                     List all files in the bucket
+        upload               <bucket> <file> <dest_path>                  Upload local file to a bucket
+        encrypted_upload     <bucket> <file> <dest_path> <encryption_key> Upload local file as an encrypted file to a bucket
+        kms_upload           <bucket> <file> <dest_path> <kms_key>        Upload local file and encrypt service side using a KMS key
+        download             <bucket> <file> <path>                       Download a file from a bucket
+        download_public_file <bucket> <file> <path>                       Download a publically accessible file from a bucket
+        encrypted_download <bucket> <file> <path> <encryption_key>        Download an encrypted file from a bucket
+        download_with_requester_pays <project> <bucket> <file> <path>     Download a file from a requester pays enabled bucket
+        rotate_encryption_key <bucket> <file> <base64_current_encryption_key> <base64_new_encryption_key> Update encryption key of an encrypted file.
+        generate_encryption_key                                           Generate a sample encryption key
+        delete       <bucket> <file>                                      Delete a file from a bucket
+        metadata     <bucket> <file>                                      Display metadata for a file in a bucket
+        make_public  <bucket> <file>                                      Make a file in a bucket public
+        rename       <bucket> <file> <new>                                Rename a file in a bucket
+        copy <srcBucket> <srcFile> <destBucket> <destFile>                Copy file to other bucket
+        generate_signed_url <bucket> <file>                               Generate a signed url for a file
+        set_event_based_hold     <bucket> <file>                          Set an event-based hold on a file
+        release_event_based_hold <bucket> <file>                          Relase an event-based hold on a file
+        set_temporary_hold       <bucket> <file>                          Set a temporary hold on a file
+        release_temporary_hold   <bucket> <file>                          Release a temporary hold on a file
 
-Environment variables:
-  GOOGLE_CLOUD_PROJECT must be set to your Google Cloud project ID
-    usage
+      Environment variables:
+        GOOGLE_CLOUD_PROJECT must be set to your Google Cloud project ID
+    USAGE
   end
 end
 
-if __FILE__ == $PROGRAM_NAME
-  run_sample ARGV
-end
+run_sample ARGV if $PROGRAM_NAME == __FILE__

@@ -15,14 +15,11 @@
 require "rspec"
 
 describe "BigQuery Stack Overflow" do
-
   it "queries stackoverflow dataset" do
-    expect {
+    expect do
       load File.expand_path("../stackoverflow.rb", __dir__)
-    }.to output(
+    end.to output(
       /stackoverflow\.com.*views/
     ).to_stdout
-   end
-
+  end
 end
-

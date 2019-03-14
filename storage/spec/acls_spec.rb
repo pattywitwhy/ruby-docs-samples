@@ -30,7 +30,6 @@ RSpec.configure do |config|
 end
 
 describe "Google Cloud Storage ACL sample" do
-
   before do
     @bucket_name     = ENV["GOOGLE_CLOUD_STORAGE_BUCKET"]
     @storage         = Google::Cloud::Storage.new
@@ -39,27 +38,23 @@ describe "Google Cloud Storage ACL sample" do
     @local_file_path = File.expand_path "resources/file.txt", __dir__
     @test_email      = "user-test@test.com"
 
-    if @bucket.nil?
-      @storage.create_bucket @bucket_name
-    end
+    @storage.create_bucket @bucket_name if @bucket.nil?
   end
 
   # Delete given file in Cloud Storage test bucket if it exists
   def delete_file storage_file_path
-    @bucket.file(storage_file_path).delete if @bucket.file storage_file_path
+    @bucket.file(storage_file_path)&.delete
   end
 
   def upload local_file_path, storage_file_path
-    unless @bucket.file storage_file_path
-      @bucket.create_file local_file_path, storage_file_path
-    end
+    @bucket.create_file local_file_path, storage_file_path unless @bucket.file storage_file_path
   end
 
   # Capture and return STDOUT output by block
-  def capture &block
+  def capture
     real_stdout = $stdout
     $stdout = StringIO.new
-    block.call
+    yield
     @captured_output = $stdout.string
   ensure
     $stdout = real_stdout
@@ -101,11 +96,11 @@ describe "Google Cloud Storage ACL sample" do
 
     expect(@bucket.acl.owners).not_to include @test_email
 
-    expect {
+    expect do
       add_bucket_owner project_id:  @project_id,
                        bucket_name: @bucket_name,
                        email:       @test_email
-    }.to output(
+    end.to output(
       /Added OWNER permission for #{@test_email} to #{@bucket_name}/
     ).to_stdout
 
@@ -119,11 +114,11 @@ describe "Google Cloud Storage ACL sample" do
 
     expect(@bucket.acl.owners).to include @test_email
 
-    expect {
+    expect do
       remove_bucket_acl project_id:  @project_id,
                         bucket_name: @bucket_name,
                         email:       @test_email
-    }.to output(
+    end.to output(
       /Removed ACL permissions for #{@test_email} from #{@bucket_name}/
     ).to_stdout
 
@@ -132,17 +127,15 @@ describe "Google Cloud Storage ACL sample" do
   end
 
   it "can add bucket default owner" do
-    if @bucket.default_acl.owners.include? @test_email
-      @bucket.default_acl.delete @test_email
-    end
+    @bucket.default_acl.delete @test_email if @bucket.default_acl.owners.include? @test_email
 
     expect(@bucket.default_acl.owners).not_to include @test_email
 
-    expect {
+    expect do
       add_bucket_default_owner project_id:  @project_id,
                                bucket_name: @bucket_name,
                                email:       @test_email
-    }.to output(
+    end.to output(
       /Added default OWNER permission for #{@test_email} to #{@bucket_name}/
     ).to_stdout
 
@@ -151,9 +144,7 @@ describe "Google Cloud Storage ACL sample" do
   end
 
   it "can remove bucket default acl" do
-    if @bucket.default_acl.owners.include? @test_email
-      @bucket.default_acl.delete @test_email
-    end
+    @bucket.default_acl.delete @test_email if @bucket.default_acl.owners.include? @test_email
 
     expect(@bucket.default_acl.owners).not_to include @test_email
 
@@ -162,11 +153,11 @@ describe "Google Cloud Storage ACL sample" do
 
     expect(@bucket.default_acl.owners).to include @test_email
 
-    expect {
+    expect do
       remove_bucket_default_acl project_id:  @project_id,
                                 bucket_name: @bucket_name,
                                 email:       @test_email
-    }.to output(
+    end.to output(
       /Removed default ACL permissions for #{@test_email} from #{@bucket_name}/
     ).to_stdout
 
@@ -230,12 +221,12 @@ describe "Google Cloud Storage ACL sample" do
 
     expect(file.acl.owners).not_to include @test_email
 
-    expect {
+    expect do
       add_file_owner project_id:  @project_id,
                      bucket_name: @bucket_name,
                      file_name:   file_name,
                      email:       @test_email
-    }.to output(
+    end.to output(
       /Added OWNER permission for #{@test_email} to #{file_name}/
     ).to_stdout
 
@@ -255,12 +246,12 @@ describe "Google Cloud Storage ACL sample" do
 
     expect(file.acl.owners).to include @test_email
 
-    expect {
+    expect do
       remove_file_acl project_id:  @project_id,
                       bucket_name: @bucket_name,
                       file_name:   file_name,
                       email:       @test_email
-    }.to output(
+    end.to output(
       /Removed ACL permissions for #{@test_email} from #{file_name}/
     ).to_stdout
 

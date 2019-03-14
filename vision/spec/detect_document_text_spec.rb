@@ -18,7 +18,6 @@ require "google/cloud/storage"
 require_relative "../detect_document_text"
 
 describe "Detect Document Text" do
-
   before do
     @storage    = Google::Cloud::Storage.new
     @bucket     = @storage.bucket ENV["GOOGLE_CLOUD_STORAGE_BUCKET"]
@@ -30,9 +29,9 @@ describe "Detect Document Text" do
   end
 
   example "detect document text from local image file" do
-    expect {
+    expect do
       detect_document_text image_path: image_path("otter_crossing.jpg")
-    }.to output(
+    end.to output(
       /Otters/
     ).to_stdout
   end
@@ -41,9 +40,9 @@ describe "Detect Document Text" do
     storage_file = @bucket.upload_file image_path("otter_crossing.jpg"),
                                        "otter_crossing.jpg"
 
-    expect {
+    expect do
       detect_document_text_gcs image_path: storage_file.to_gs_url
-    }.to output(
+    end.to output(
       /Otters/
     ).to_stdout
   end

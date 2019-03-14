@@ -16,18 +16,15 @@ require "rspec"
 require "google/cloud/language"
 
 describe "Language Quickstart" do
-
   it "detect sentiment" do
     language = Google::Cloud::Language.new
-    expect(Google::Cloud::Language).to receive(:new).
-                                       and_return(language)
+    expect(Google::Cloud::Language).to receive(:new)
+      .and_return(language)
 
-    expect {
+    expect do
       load File.expand_path("../quickstart.rb", __dir__)
-    }.to output(
+    end.to output(
       /Text: Hello, world!\nScore: \d\.\d+, \d\.\d+/
     ).to_stdout
   end
-
 end
-
