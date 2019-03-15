@@ -29,9 +29,9 @@ describe "Detect Logos" do
   end
 
   example "detect logos from local image file" do
-    expect do
+    expect {
       detect_logos image_path: image_path("logos.png")
-    end.to output(
+    }.to output(
       /google/i
     ).to_stdout
   end
@@ -40,9 +40,9 @@ describe "Detect Logos" do
     storage_file = @bucket.upload_file image_path("logos.png"),
                                        "logos.png"
 
-    expect do
+    expect {
       detect_logos_gcs image_path: storage_file.to_gs_url
-    end.to output(
+    }.to output(
       /google/i
     ).to_stdout
   end

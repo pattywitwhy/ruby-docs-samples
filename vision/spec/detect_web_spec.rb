@@ -29,9 +29,9 @@ describe "Detect Web Entities and Pages" do
   end
 
   example "detect web entities and pages from local image file" do
-    expect do
+    expect {
       detect_web image_path: image_path("otter_crossing.jpg")
-    end.to output(
+    }.to output(
       /Otter.*http/m
     ).to_stdout
   end
@@ -40,9 +40,9 @@ describe "Detect Web Entities and Pages" do
     storage_file = @bucket.upload_file image_path("otter_crossing.jpg"),
                                        "otter_crossing.jpg"
 
-    expect do
+    expect {
       detect_web_gcs image_path: storage_file.to_gs_url
-    end.to output(
+    }.to output(
       /Otter.*http/m
     ).to_stdout
   end

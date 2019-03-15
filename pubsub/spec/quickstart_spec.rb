@@ -38,9 +38,9 @@ describe "PubSub Quickstart" do
       .with(project: "YOUR_PROJECT_ID")
       .and_return(pubsub)
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       "Topic projects/#{pubsub.project}/" \
       "topics/my-new-topic created.\n"
     ).to_stdout

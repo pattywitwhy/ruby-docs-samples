@@ -32,10 +32,10 @@ describe "Detect Document Text from PDF" do
     storage_file = @bucket.upload_file document_path("pdf_ocr.pdf"),
                                        "pdf_ocr.pdf"
 
-    expect do
+    expect {
       detect_pdf_gcs gcs_source_uri:      storage_file.to_gs_url,
                      gcs_destination_uri: "gs://#{@bucket.name}/prefix_"
-    end.to output(
+    }.to output(
       /A Simple PDF File/
     ).to_stdout
   end

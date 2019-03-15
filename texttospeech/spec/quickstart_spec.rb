@@ -16,9 +16,9 @@ require "rspec"
 
 describe "Quickstart" do
   example "quickstart" do
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       /Audio content written to file 'output.mp3'/
     ).to_stdout
 

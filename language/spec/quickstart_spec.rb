@@ -21,9 +21,9 @@ describe "Language Quickstart" do
     expect(Google::Cloud::Language).to receive(:new)
       .and_return(language)
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       /Text: Hello, world!\nScore: \d\.\d+, \d\.\d+/
     ).to_stdout
   end

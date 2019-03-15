@@ -24,9 +24,9 @@ describe "Detect Landmarks" do
   end
 
   example "detect landmarks from local image file" do
-    expect do
+    expect {
       detect_landmarks image_path: image_path("palace_of_fine_arts.jpg")
-    end.to output(
+    }.to output(
       /Palace/
     ).to_stdout
   end
@@ -34,9 +34,9 @@ describe "Detect Landmarks" do
   example "detect landmarks from image file in Google Cloud Storage" do
     gcs_uri = "gs://cloud-samples-data/vision/palace_of_fine_arts.jpg"
 
-    expect do
+    expect {
       detect_landmarks_gcs image_path: gcs_uri
-    end.to output(
+    }.to output(
       /Palace/
     ).to_stdout
   end

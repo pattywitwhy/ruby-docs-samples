@@ -59,9 +59,9 @@ describe "Google Translate API samples" do
   end
 
   example "detect language" do
-    expect do
+    expect {
       detect_language project_id: @project_id, text: "Sample text written in English"
-    end.to output(
+    }.to output(
       /'Sample text written in English' detected as language: en/
     ).to_stdout
   end

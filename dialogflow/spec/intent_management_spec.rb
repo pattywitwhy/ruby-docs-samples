@@ -33,12 +33,12 @@ describe "Intent Management" do
                      display_name: @intent_display_name).size
     ).to eq(0)
 
-    expectation = expect do
+    expectation = expect {
       create_intent project_id:             @project_id,
                     display_name:           @intent_display_name,
                     message_text:           @message_text,
                     training_phrases_parts: @training_phrases_parts
-    end.to output(
+    }.to output(
       /#{@intent_display_name}.*#{@message_text}/m
     ).to_stdout
 

@@ -25,21 +25,21 @@ describe "Context Management" do
   end
 
   example "create context" do
-    expect do
+    expect {
       list_contexts project_id: @project_id, session_id: @session_id
-    end.not_to output(
+    }.not_to output(
       /#{@context_id}/
     ).to_stdout
-    expect do
+    expect {
       create_context project_id: @project_id,
                      session_id: @session_id,
                      context_id: @context_id
-    end.to output(
+    }.to output(
       /#{@session_id}.*#{@context_id}/m
     ).to_stdout
-    expect do
+    expect {
       list_contexts project_id: @project_id, session_id: @session_id
-    end.to output(
+    }.to output(
       /#{@context_id}/
     ).to_stdout
   end
@@ -54,9 +54,9 @@ describe "Context Management" do
                      session_id: @session_id,
                      context_id: @context_id
     end
-    expect do
+    expect {
       list_contexts project_id: @project_id, session_id: @session_id
-    end.not_to output(
+    }.not_to output(
       /#{@context_id}/
     ).to_stdout
   end

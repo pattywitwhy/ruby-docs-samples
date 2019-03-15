@@ -16,9 +16,9 @@ require "rspec"
 
 describe "DLP Quickstart" do
   it "prints results found in sample text" do
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       "Quote:      Robert Frost\n" \
       "Info type:  PERSON_NAME\n" \
       "Likelihood: LIKELY\n"

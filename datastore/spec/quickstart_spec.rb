@@ -42,9 +42,9 @@ describe "Datastore Quickstart" do
       .with(project: "YOUR_PROJECT_ID")
       .and_return(datastore)
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output {
+    }.to output {
       "Saved Task: Buy milk\n"
     }.to_stdout
 

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 class CatsController < ApplicationController
-  before_action :set_cat, only: %i[show edit update destroy]
+  before_action :set_cat, only: [:show, :edit, :update, :destroy]
 
   # GET /cats
   # GET /cats.json

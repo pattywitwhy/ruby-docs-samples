@@ -25,9 +25,9 @@ describe "Google Cloud Bigtable Quickstart" do
       .with("my-bigtable-instance", "my-table")
       .and_return(table)
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(/user0000001/).to_stdout
+    }.to output(/user0000001/).to_stdout
 
     table.delete
   end

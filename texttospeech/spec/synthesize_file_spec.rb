@@ -18,9 +18,9 @@ require_relative "../synthesize_file"
 
 describe "Synthesize File" do
   example "synthesizes text file" do
-    expect do
+    expect {
       synthesize_text_file text_file: "resources/hello.txt"
-    end.to output(
+    }.to output(
       /Audio content written to file/
     ).to_stdout
 
@@ -33,9 +33,9 @@ describe "Synthesize File" do
   end
 
   example "synthesizes ssml file" do
-    expect do
+    expect {
       synthesize_ssml_file ssml_file: "resources/hello.ssml"
-    end.to output(
+    }.to output(
       /Audio content written to file/
     ).to_stdout
 

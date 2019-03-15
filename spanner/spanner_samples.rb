@@ -181,7 +181,7 @@ def read_data project_id:, instance_id:, database_id:
   spanner = Google::Cloud::Spanner.new project: project_id
   client  = spanner.client instance_id, database_id
 
-  client.read("Albums", %i[SingerId AlbumId AlbumTitle]).rows.each do |row|
+  client.read("Albums", [:SingerId, :AlbumId, :AlbumTitle]).rows.each do |row|
     puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:AlbumTitle]}"
   end
   # [END spanner_read_data]
@@ -199,7 +199,7 @@ def read_stale_data project_id:, instance_id:, database_id:
 
   # Perform a read with a data staleness of 15 seconds
   client.snapshot staleness: 15 do |snapshot|
-    snapshot.read("Albums", %i[SingerId AlbumId AlbumTitle]).rows.each do |row|
+    snapshot.read("Albums", [:SingerId, :AlbumId, :AlbumTitle]).rows.each do |row|
       puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:AlbumTitle]}"
     end
   end
@@ -366,9 +366,9 @@ def query_with_array_of_struct project_id:, instance_id:, database_id:
   # [END spanner_create_user_defined_struct]
 
   # [START spanner_create_array_of_struct_with_data]
-  band_members = [name_type.struct(%w[Elena Campbell]),
-                  name_type.struct(%w[Gabriel Wright]),
-                  name_type.struct(%w[Benjamin Martinez])]
+  band_members = [name_type.struct(["Elena", "Campbell"]),
+                  name_type.struct(["Gabriel", "Wright"]),
+                  name_type.struct(["Benjamin", "Martinez"])]
   # [END spanner_create_array_of_struct_with_data]
 
   # [START spanner_query_data_with_array_of_struct]
@@ -418,7 +418,7 @@ def query_nested_struct_field project_id:, instance_id:, database_id:
 
   song_info_struct = {
     SongName:    "Imagination",
-    ArtistNames: [name_type.struct(%w[Elena Campbell]), name_type.struct(%w[Hannah Harris])]
+    ArtistNames: [name_type.struct(["Elena", "Campbell"]), name_type.struct(["Hannah", "Harris"])]
   }
 
   client.execute(
@@ -562,7 +562,7 @@ def read_data_with_index project_id:, instance_id:, database_id:
   spanner = Google::Cloud::Spanner.new project: project_id
   client  = spanner.client instance_id, database_id
 
-  result = client.read "Albums", %i[AlbumId AlbumTitle],
+  result = client.read "Albums", [:AlbumId, :AlbumTitle],
                        index: "AlbumsByAlbumTitle"
 
   result.rows.each do |row|
@@ -582,7 +582,7 @@ def read_data_with_storing_index project_id:, instance_id:, database_id:
   spanner = Google::Cloud::Spanner.new project: project_id
   client  = spanner.client instance_id, database_id
 
-  result = client.read "Albums", %i[AlbumId AlbumTitle MarketingBudget],
+  result = client.read "Albums", [:AlbumId, :AlbumTitle, :MarketingBudget],
                        index: "AlbumsByAlbumTitle2"
 
   result.rows.each do |row|
@@ -609,7 +609,7 @@ def read_only_transaction project_id:, instance_id:, database_id:
 
     # Even if changes occur in-between the reads, the transaction ensures that
     # both return the same data.
-    snapshot.read("Albums", %i[AlbumId AlbumTitle SingerId]).rows.each do |row|
+    snapshot.read("Albums", [:AlbumId, :AlbumTitle, :SingerId]).rows.each do |row|
       puts "#{row[:AlbumId]} #{row[:AlbumTitle]} #{row[:SingerId]}"
     end
   end
@@ -964,22 +964,7 @@ def run_sample arguments
   database_id = arguments.shift
   project_id  = ENV["GOOGLE_CLOUD_PROJECT"]
 
-  commands = %w[
-    create_database create_table_with_timestamp_column insert_data
-    insert_data_with_timestamp_column query_data
-    query_data_with_timestamp_column read_data read_stale_data
-    create_index create_storing_index add_column add_timestamp_column
-    update_data query_data_with_new_column
-    update_data_with_timestamp_column read_write_transaction
-    query_data_with_index read_data_with_index
-    read_data_with_storing_index read_only_transaction
-    spanner_batch_client write_struct_data query_with_struct
-    query_with_array_of_struct query_struct_field query_nested_struct_field
-    insert_using_dml update_using_dml delete_using_dml
-    update_using_dml_with_timestamp write_and_read_using_dml
-    update_using_dml_with_struct write_using_dml write_with_transaction_using_dml
-    update_using_partitioned_dml delete_using_partitioned_dml
-  ]
+  commands = ["create_database", "create_table_with_timestamp_column", "insert_data", "insert_data_with_timestamp_column", "query_data", "query_data_with_timestamp_column", "read_data", "read_stale_data", "create_index", "create_storing_index", "add_column", "add_timestamp_column", "update_data", "query_data_with_new_column", "update_data_with_timestamp_column", "read_write_transaction", "query_data_with_index", "read_data_with_index", "read_data_with_storing_index", "read_only_transaction", "spanner_batch_client", "write_struct_data", "query_with_struct", "query_with_array_of_struct", "query_struct_field", "query_nested_struct_field", "insert_using_dml", "update_using_dml", "delete_using_dml", "update_using_dml_with_timestamp", "write_and_read_using_dml", "update_using_dml_with_struct", "write_using_dml", "write_with_transaction_using_dml", "update_using_partitioned_dml", "delete_using_partitioned_dml"]
   if command.eql?("query_data_with_index") && instance_id && database_id && arguments.size >= 2
     query_data_with_index project_id:  project_id,
                           instance_id: instance_id,

@@ -16,9 +16,9 @@ require "rspec"
 
 describe "Video Intelligence API Quickstart" do
   it "can find labels for a cat video" do
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       /Label description: animal/
     ).to_stdout
   end

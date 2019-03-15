@@ -26,9 +26,9 @@ describe "Vision Quickstart" do
       .with(version: :v1)
       .and_return(image_annotator).ordered
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       /Labels:.*cat.*/m
     ).to_stdout
   end

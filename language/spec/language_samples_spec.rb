@@ -49,13 +49,13 @@ describe "Google Cloud Natural Language API samples" do
     positive_output = /Overall document sentiment: \(\d\.\d+\)$/
     negative_output = /Overall document sentiment: \(-\d\.\d+\)$/
 
-    expect do
+    expect {
       sentiment_from_text text_content: positive_text
-    end.to output(positive_output).to_stdout
+    }.to output(positive_output).to_stdout
 
-    expect do
+    expect {
       sentiment_from_text text_content: negative_text
-    end.to output(negative_output).to_stdout
+    }.to output(negative_output).to_stdout
   end
 
   example "sentence-level sentiment from text" do
@@ -64,13 +64,13 @@ describe "Google Cloud Natural Language API samples" do
     positive_output = /Sentence .*\n^.*\(\d\.\d+\)$\n^.*\(\d\.\d+\)$/
     negative_output = /Sentence .*\n^.*\(-\d\.\d+\)$\n^.*\(-\d\.\d+\)$/
 
-    expect do
+    expect {
       sentiment_from_text text_content: positive_text
-    end.to output(positive_output).to_stdout
+    }.to output(positive_output).to_stdout
 
-    expect do
+    expect {
       sentiment_from_text text_content: negative_text
-    end.to output(negative_output).to_stdout
+    }.to output(negative_output).to_stdout
   end
 
   example "document sentiment from a file in Google Cloud Storage" do
@@ -79,17 +79,17 @@ describe "Google Cloud Natural Language API samples" do
     positive_output = /Overall document sentiment: \(\d\.\d+\)$/
     negative_output = /Overall document sentiment: \(-\d\.\d+\)$/
 
-    expect do
+    expect {
       sentiment_from_cloud_storage_file(
         storage_path: "gs://#{@bucket_name}/positive.txt"
       )
-    end.to output(positive_output).to_stdout
+    }.to output(positive_output).to_stdout
 
-    expect do
+    expect {
       sentiment_from_cloud_storage_file(
         storage_path: "gs://#{@bucket_name}/negative.txt"
       )
-    end.to output(negative_output).to_stdout
+    }.to output(negative_output).to_stdout
   end
 
   example "sentence-level sentiment from a file in Google Cloud Storage" do
@@ -98,17 +98,17 @@ describe "Google Cloud Natural Language API samples" do
     positive_output = /Sentence .*\n^.*\(\d\.\d+\)$\n^.*\(\d\.\d+\)$/
     negative_output = /Sentence .*\n^.*\(-\d\.\d+\)$\n^.*\(-\d\.\d+\)$/
 
-    expect do
+    expect {
       sentiment_from_cloud_storage_file(
         storage_path: "gs://#{@bucket_name}/positive.txt"
       )
-    end.to output(positive_output).to_stdout
+    }.to output(positive_output).to_stdout
 
-    expect do
+    expect {
       sentiment_from_cloud_storage_file(
         storage_path: "gs://#{@bucket_name}/negative.txt"
       )
-    end.to output(negative_output).to_stdout
+    }.to output(negative_output).to_stdout
   end
 
   example "entities from text" do

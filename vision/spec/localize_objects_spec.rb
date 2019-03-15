@@ -29,9 +29,9 @@ describe "Localize Objects" do
   end
 
   example "localize objects from local image file" do
-    expect do
+    expect {
       localize_objects image_path: image_path("puppies.jpg")
-    end.to output(
+    }.to output(
       /Dog/
     ).to_stdout
   end
@@ -40,9 +40,9 @@ describe "Localize Objects" do
     storage_file = @bucket.upload_file image_path("puppies.jpg"),
                                        "puppies.jpg"
 
-    expect do
+    expect {
       localize_objects_gs image_path: storage_file.to_gs_url
-    end.to output(
+    }.to output(
       /Dog/
     ).to_stdout
   end

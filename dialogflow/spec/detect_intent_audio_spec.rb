@@ -26,12 +26,12 @@ describe "Detect Intent Audio" do
   end
 
   example "detect intent from audio" do
-    expect do
+    expect {
       detect_intent_audio project_id:      @project_id,
                           session_id:      @session_id,
                           audio_file_path: @audio_file_path,
                           language_code:   @language_code
-    end.to output(
+    }.to output(
       /Where would you like to reserve a room?/
     ).to_stdout
   end

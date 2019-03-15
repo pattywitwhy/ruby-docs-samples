@@ -240,13 +240,13 @@ describe "Key Management Service" do
   it "can create key ring" do
     key_ring_id = "#{@project_id}-create-#{Time.now.to_i}"
 
-    expect do
+    expect {
       $create_key_ring.call(
         project_id:  @project_id,
         location_id: @location_id,
         key_ring_id: key_ring_id
       )
-    end.to output(/#{key_ring_id}/).to_stdout
+    }.to output(/#{key_ring_id}/).to_stdout
 
     test_key_ring = get_test_key_ring(
       project_id:  @project_id,
@@ -260,14 +260,14 @@ describe "Key Management Service" do
   it "can create a crypto key" do
     test_crypto_key_id = "#{@project_id}-crypto-#{Time.now.to_i}"
 
-    expect do
+    expect {
       $create_crypto_key.call(
         project_id:    @project_id,
         location_id:   @location_id,
         key_ring_id:   @key_ring_id,
         crypto_key_id: test_crypto_key_id
       )
-    end.to output(/#{test_crypto_key_id}/).to_stdout
+    }.to output(/#{test_crypto_key_id}/).to_stdout
 
     test_crypto_key = get_test_crypto_key(
       project_id:    @project_id,
@@ -282,7 +282,7 @@ describe "Key Management Service" do
   it "can encrypt a file" do
     temp_output = Tempfile.new "kms_encrypted_file"
 
-    expect do
+    expect {
       $encrypt.call(
         project_id:      @project_id,
         location_id:     @location_id,
@@ -291,7 +291,7 @@ describe "Key Management Service" do
         plaintext_file:  @plaintext_file,
         ciphertext_file: temp_output.path
       )
-    end.to output(/#{@plaintext_file}/).to_stdout
+    }.to output(/#{@plaintext_file}/).to_stdout
 
     decrypt_test_file(
       project_id:      @project_id,
@@ -319,7 +319,7 @@ describe "Key Management Service" do
       ciphertext_file: temp_output.path
     )
 
-    expect do
+    expect {
       $decrypt.call(
         project_id:      @project_id,
         location_id:     @location_id,
@@ -328,7 +328,7 @@ describe "Key Management Service" do
         ciphertext_file: temp_output.path,
         plaintext_file:  temp_output.path
       )
-    end.to output(/#{temp_output.path}/).to_stdout
+    }.to output(/#{temp_output.path}/).to_stdout
 
     plaintext = File.read temp_output.path
 
@@ -352,14 +352,14 @@ describe "Key Management Service" do
       crypto_key_id: test_crypto_key_id
     )
 
-    expect do
+    expect {
       $create_crypto_key_version.call(
         project_id:    @project_id,
         location_id:   @location_id,
         key_ring_id:   @key_ring_id,
         crypto_key_id: test_crypto_key_id
       )
-    end.to output(/Created version/).to_stdout
+    }.to output(/Created version/).to_stdout
 
     after_version_list = list_test_crypto_key_version(
       project_id:    @project_id,
@@ -390,7 +390,7 @@ describe "Key Management Service" do
 
     version_id = crypto_key_version.name.split("/").last
 
-    expect do
+    expect {
       $set_crypto_key_primary_version.call(
         project_id:    @project_id,
         location_id:   @location_id,
@@ -398,7 +398,7 @@ describe "Key Management Service" do
         crypto_key_id: test_crypto_key_id,
         version_id:    version_id
       )
-    end.to output(/Set #{version_id} as primary version/).to_stdout
+    }.to output(/Set #{version_id} as primary version/).to_stdout
 
     crypto_key = get_test_crypto_key(
       project_id:    @project_id,
@@ -432,7 +432,7 @@ describe "Key Management Service" do
 
     expect(disabled_crypto_key_version.state).to eq :DISABLED
 
-    expect do
+    expect {
       $enable_crypto_key_version.call(
         project_id:    @project_id,
         location_id:   @location_id,
@@ -440,7 +440,7 @@ describe "Key Management Service" do
         crypto_key_id: test_crypto_key_id,
         version_id:    version_id
       )
-    end.to output(/Enabled version #{version_id} of #{test_crypto_key_id}/).to_stdout
+    }.to output(/Enabled version #{version_id} of #{test_crypto_key_id}/).to_stdout
 
     crypto_key = get_test_crypto_key_version(
       project_id:    @project_id,
@@ -465,7 +465,7 @@ describe "Key Management Service" do
 
     version_id = "1" # first version is labeled 1
 
-    expect do
+    expect {
       $disable_crypto_key_version.call(
         project_id:    @project_id,
         location_id:   @location_id,
@@ -473,7 +473,7 @@ describe "Key Management Service" do
         crypto_key_id: test_crypto_key_id,
         version_id:    version_id
       )
-    end.to output(/Disabled version #{version_id} of #{test_crypto_key_id}/).to_stdout
+    }.to output(/Disabled version #{version_id} of #{test_crypto_key_id}/).to_stdout
 
     crypto_key = get_test_crypto_key_version(
       project_id:    @project_id,
@@ -508,7 +508,7 @@ describe "Key Management Service" do
 
     expect(scheduled_crypto_key_version.state).to eq :DESTROY_SCHEDULED
 
-    expect do
+    expect {
       $restore_crypto_key_version.call(
         project_id:    @project_id,
         location_id:   @location_id,
@@ -516,7 +516,7 @@ describe "Key Management Service" do
         crypto_key_id: test_crypto_key_id,
         version_id:    version_id
       )
-    end.to output(/Restored version #{version_id} of #{test_crypto_key_id}/).to_stdout
+    }.to output(/Restored version #{version_id} of #{test_crypto_key_id}/).to_stdout
 
     crypto_key = get_test_crypto_key_version(
       project_id:    @project_id,
@@ -541,7 +541,7 @@ describe "Key Management Service" do
 
     version_id = "1" # first version is labeled 1
 
-    expect do
+    expect {
       $destroy_crypto_key_version.call(
         project_id:    @project_id,
         location_id:   @location_id,
@@ -549,7 +549,7 @@ describe "Key Management Service" do
         crypto_key_id: test_crypto_key_id,
         version_id:    version_id
       )
-    end.to output(/Destroyed version #{version_id} of #{test_crypto_key_id}/).to_stdout
+    }.to output(/Destroyed version #{version_id} of #{test_crypto_key_id}/).to_stdout
 
     crypto_key = get_test_crypto_key_version(
       project_id:    @project_id,
@@ -563,7 +563,7 @@ describe "Key Management Service" do
   end
 
   it "can add a member to a crypto key policy" do
-    expect do
+    expect {
       $add_member_to_crypto_key_policy.call(
         project_id:    @project_id,
         location_id:   @location_id,
@@ -572,7 +572,7 @@ describe "Key Management Service" do
         member:        "user:test@test.com",
         role:          "roles/owner"
       )
-    end.to output(/test@test.com/).to_stdout
+    }.to output(/test@test.com/).to_stdout
 
     policy = get_test_crypto_key_policy(
       project_id:    @project_id,
@@ -614,7 +614,7 @@ describe "Key Management Service" do
 
     expect(policy.bindings).to_not be nil
 
-    expect do
+    expect {
       $remove_member_from_crypto_key_policy.call(
         project_id:    @project_id,
         location_id:   @location_id,
@@ -623,7 +623,7 @@ describe "Key Management Service" do
         member:        "user:test@test.com",
         role:          "roles/owner"
       )
-    end.to output(/test@test.com/).to_stdout
+    }.to output(/test@test.com/).to_stdout
 
     policy = get_test_crypto_key_policy(
       project_id:    @project_id,
@@ -660,7 +660,7 @@ describe "Key Management Service" do
       expect(members).to_not include("serviceAccount:test-account@#{@project_id}.iam.gserviceaccount.com")
     end
 
-    expect do
+    expect {
       $add_member_to_key_ring_policy.call(
         project_id:  @project_id,
         location_id: @location_id,
@@ -668,7 +668,7 @@ describe "Key Management Service" do
         member:      "serviceAccount:test-account@#{@project_id}.iam.gserviceaccount.com",
         role:        "roles/owner"
       )
-    end.to output(/serviceAccount:test-account@#{@project_id}.iam.gserviceaccount.com/).to_stdout
+    }.to output(/serviceAccount:test-account@#{@project_id}.iam.gserviceaccount.com/).to_stdout
 
     policy = get_test_key_ring_policy(
       project_id:  @project_id,
@@ -690,12 +690,12 @@ describe "Key Management Service" do
       role:        "roles/owner"
     )
 
-    expect do
+    expect {
       $get_key_ring_policy.call(
         project_id:  @project_id,
         location_id: @location_id,
         key_ring_id: @key_ring_id
       )
-    end.to output(/serviceAccount:test-account@#{@project_id}.iam.gserviceaccount.com/).to_stdout
+    }.to output(/serviceAccount:test-account@#{@project_id}.iam.gserviceaccount.com/).to_stdout
   end
 end

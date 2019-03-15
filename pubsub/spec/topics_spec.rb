@@ -66,10 +66,10 @@ describe "Pub/Sub topics sample" do
   end
 
   it "creates topic" do
-    expect do
+    expect {
       create_topic project_id: @project_id,
                    topic_name: @topic_name
-    end.to output(/#{@topic_name} created/).to_stdout
+    }.to output(/#{@topic_name} created/).to_stdout
 
     topic = @pubsub.topic @topic_name
     expect(topic.nil?).to eq(false)
@@ -81,20 +81,20 @@ describe "Pub/Sub topics sample" do
     @pubsub.create_topic @topic_name
 
     expect_with_retry do
-      expect do
+      expect {
         list_topics project_id: @project_id
-      end.to output(/#{@topic_name}/).to_stdout
+      }.to output(/#{@topic_name}/).to_stdout
     end
   end
 
   it "creates pull subscription" do
     @pubsub.create_topic @topic_name
 
-    expect do
+    expect {
       create_pull_subscription project_id:        @project_id,
                                topic_name:        @topic_name,
                                subscription_name: @pull_subscription_name
-    end.to output(/#{@pull_subscription_name} created/).to_stdout
+    }.to output(/#{@pull_subscription_name} created/).to_stdout
 
     subscription = @pubsub.subscription @pull_subscription_name
     expect(subscription.nil?).to eq(false)
@@ -106,12 +106,12 @@ describe "Pub/Sub topics sample" do
   it "creates push subscription" do
     @pubsub.create_topic @topic_name
 
-    expect do
+    expect {
       create_push_subscription project_id:        @project_id,
                                topic_name:        @topic_name,
                                subscription_name: @push_subscription_name,
                                endpoint:          "https://#{@pubsub.project}.appspot.com/push"
-    end.to output(/#{@push_subscription_name} created/).to_stdout
+    }.to output(/#{@push_subscription_name} created/).to_stdout
 
     subscription = @pubsub.subscription @push_subscription_name
     expect(subscription.nil?).to eq(false)
@@ -124,10 +124,10 @@ describe "Pub/Sub topics sample" do
   it "gets topic policy" do
     @pubsub.create_topic @topic_name
 
-    expect do
+    expect {
       get_topic_policy project_id: @project_id,
                        topic_name: @topic_name
-    end.to output(/Topic policy:/).to_stdout
+    }.to output(/Topic policy:/).to_stdout
   end
 
   it "sets topic policy" do
@@ -141,10 +141,10 @@ describe "Pub/Sub topics sample" do
         m.call "roles/pubsub.publisher", @service_account
       end
 
-    expect do
+    expect {
       set_topic_policy project_id: @project_id,
                        topic_name: @topic_name
-    end.not_to raise_error
+    }.not_to raise_error
 
     expect(@pubsub.topic(@topic_name).policy.roles).to \
       include("roles/pubsub.publisher" => [@service_account])
@@ -153,20 +153,20 @@ describe "Pub/Sub topics sample" do
   it "tests topic permissions" do
     @pubsub.create_topic @topic_name
 
-    expect do
+    expect {
       test_topic_permissions project_id: @project_id,
                              topic_name: @topic_name
-    end.to output(/Permission to attach subscription\nPermission to publish\nPermission to update/).to_stdout
+    }.to output(/Permission to attach subscription\nPermission to publish\nPermission to update/).to_stdout
   end
 
   it "publishes message" do
     topic = @pubsub.create_topic @topic_name
     subscription = topic.subscribe @pull_subscription_name
 
-    expect do
+    expect {
       publish_message project_id: @project_id,
                       topic_name: @topic_name
-    end.to output(/Message published/).to_stdout
+    }.to output(/Message published/).to_stdout
 
     expect_with_retry do
       subscription.pull(max: 10).each do |message|
@@ -180,10 +180,10 @@ describe "Pub/Sub topics sample" do
     topic = @pubsub.create_topic @topic_name
     subscription = topic.subscribe @pull_subscription_name
 
-    expect do
+    expect {
       publish_messages_with_batch_settings project_id: @project_id,
                                            topic_name: @topic_name
-    end.to output(/Messages published in batch/).to_stdout
+    }.to output(/Messages published in batch/).to_stdout
 
     messages = []
     expect_with_retry do
@@ -204,10 +204,10 @@ describe "Pub/Sub topics sample" do
     topic = @pubsub.create_topic @topic_name
     subscription = topic.subscribe @pull_subscription_name
 
-    expect do
+    expect {
       publish_message_async project_id: @project_id,
                             topic_name: @topic_name
-    end.not_to raise_error
+    }.not_to raise_error
 
     expect_with_retry do
       subscription.pull(max: 1).each do |message|
@@ -221,10 +221,10 @@ describe "Pub/Sub topics sample" do
     topic = @pubsub.create_topic @topic_name
     subscription = topic.subscribe @pull_subscription_name
 
-    expect do
+    expect {
       publish_message_async_with_custom_attributes project_id: @project_id,
                                                    topic_name: @topic_name
-    end.not_to raise_error
+    }.not_to raise_error
 
     expect_with_retry do
       subscription.pull(max: 1).each do |message|
@@ -239,10 +239,10 @@ describe "Pub/Sub topics sample" do
     topic = @pubsub.create_topic @topic_name
     subscription = topic.subscribe @pull_subscription_name
 
-    expect do
+    expect {
       publish_messages_async_with_batch_settings project_id: @project_id,
                                                  topic_name: @topic_name
-    end.not_to raise_error
+    }.not_to raise_error
 
     messages = []
     expect_with_retry do
@@ -263,10 +263,10 @@ describe "Pub/Sub topics sample" do
     topic = @pubsub.create_topic @topic_name
     subscription = topic.subscribe @pull_subscription_name
 
-    expect do
+    expect {
       publish_messages_async_with_concurrency_control project_id: @project_id,
                                                       topic_name: @topic_name
-    end.not_to raise_error
+    }.not_to raise_error
 
     expect_with_retry do
       subscription.pull(max: 1).each do |message|
@@ -279,10 +279,10 @@ describe "Pub/Sub topics sample" do
   it "deletes topic" do
     topic = @pubsub.create_topic @topic_name
 
-    expect do
+    expect {
       delete_topic project_id: @project_id,
                    topic_name: @topic_name
-    end.to output(/Topic #{@topic_name} deleted/).to_stdout
+    }.to output(/Topic #{@topic_name} deleted/).to_stdout
 
     expect(@pubsub.topic(@topic_name)).to be nil
   end

@@ -264,12 +264,7 @@ def run_filter_search_sample arguments
   command = arguments.shift
   default_project_id = "projects/#{ENV['GOOGLE_CLOUD_PROJECT']}"
   company_name = "#{default_project_id}/companies/#{arguments.shift}" if command != "company_display_name_search"
-  if %w[category_filter_search
-        employment_types_filter_search
-        language_code_filter_search
-        company_display_name_search].include? command
-    user_input_array = arguments.shift.split ","
-  end
+  user_input_array = arguments.shift.split "," if ["category_filter_search", "employment_types_filter_search", "language_code_filter_search", "company_display_name_search"].include? command
 
   case command
   when "basic_keyword_search"

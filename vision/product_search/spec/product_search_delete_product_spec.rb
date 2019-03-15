@@ -22,8 +22,8 @@ describe "Delete product" do
 
     output = `ruby #{snippet_filepath} #{@project_id} #{@location} #{product_id}`
 
-    expect do
+    expect {
       @client.get_product product.name
-    end.to raise_error Google::Gax::RetryError
+    }.to raise_error Google::Gax::RetryError
   end
 end

@@ -34,7 +34,7 @@ def key_with_parent
   datastore = Google::Cloud::Datastore.new
 
   # [START datastore_key_with_parent]
-  task_key = datastore.key [%w[TaskList default], %w[Task sampleTask]]
+  task_key = datastore.key [["TaskList", "default"], ["Task", "sampleTask"]]
   # [END datastore_key_with_parent]
 
   task_key
@@ -45,9 +45,9 @@ def key_with_multilevel_parent
 
   # [START datastore_key_with_multilevel_parent]
   task_key = datastore.key([
-                             %w[User alice],
-                             %w[TaskList default],
-                             %w[Task sampleTask]
+                             ["User", "alice"],
+                             ["TaskList", "default"],
+                             ["Task", "sampleTask"]
                            ])
   # [END datastore_key_with_multilevel_parent]
 
@@ -58,7 +58,7 @@ def entity_with_parent
   datastore = Google::Cloud::Datastore.new
 
   # [START datastore_entity_with_parent]
-  task_key = datastore.key [%w[TaskList default], %w[Task sampleTask]]
+  task_key = datastore.key [["TaskList", "default"], ["Task", "sampleTask"]]
 
   task = datastore.entity task_key do |t|
     t["category"] = "Personal"
@@ -94,8 +94,8 @@ def array_value
 
   # [START datastore_array_value]
   task = datastore.entity "Task", "sampleTask" do |t|
-    t["tags"] = %w[fun programming]
-    t["collaborators"] = %w[alice bob]
+    t["tags"] = ["fun", "programming"]
+    t["collaborators"] = ["alice", "bob"]
   end
   # [END datastore_array_value]
 end
@@ -516,8 +516,8 @@ def exploding_properties
 
   # [START datastore_exploding_properties]
   task = datastore.entity "Task" do |t|
-    t["tags"] = %w[fun programming learn]
-    t["collaborators"] = %w[alice bob charlie]
+    t["tags"] = ["fun", "programming", "learn"]
+    t["collaborators"] = ["alice", "bob", "charlie"]
     t["created"] = Time.now
   end
   # [END datastore_exploding_properties]
@@ -645,7 +645,7 @@ def property_filtering_run_query
   datastore = Google::Cloud::Datastore.new
 
   # [START datastore_property_filtering_run_query]
-  start_key = datastore.key [%w[__kind__ Task], %w[__property__ priority]]
+  start_key = datastore.key [["__kind__", "Task"], ["__property__", "priority"]]
   query = datastore.query("__property__")
                    .select("__key__")
                    .where("__key__", ">=", start_key)

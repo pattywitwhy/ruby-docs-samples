@@ -29,9 +29,9 @@ describe "Detect Faces" do
   end
 
   example "detect faces from local image file" do
-    expect do
+    expect {
       detect_faces image_path: image_path("face_no_surprise.png")
-    end.to output(
+    }.to output(
       /Surprise: VERY_UNLIKELY/
     ).to_stdout
   end
@@ -40,9 +40,9 @@ describe "Detect Faces" do
     storage_file = @bucket.upload_file image_path("face_surprise.jpg"),
                                        "face_surprise.jpg"
 
-    expect do
+    expect {
       detect_faces_gcs image_path: storage_file.to_gs_url
-    end.to output(
+    }.to output(
       /Surprise: LIKELY/
     ).to_stdout
   end

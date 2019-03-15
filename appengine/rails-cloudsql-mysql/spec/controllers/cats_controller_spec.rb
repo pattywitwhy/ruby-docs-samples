@@ -59,9 +59,9 @@ RSpec.describe CatsController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Cat" do
-        expect do
+        expect {
           post :create, params: { cat: valid_attributes }, session: valid_session
-        end.to change(Cat, :count).by(1)
+        }.to change(Cat, :count).by(1)
       end
 
       it "assigns a newly created cat as @cat" do
@@ -134,9 +134,9 @@ RSpec.describe CatsController, type: :controller do
   describe "DELETE #destroy" do
     it "destroys the requested cat" do
       cat = Cat.create! valid_attributes
-      expect do
+      expect {
         delete :destroy, params: { id: cat.to_param }, session: valid_session
-      end.to change(Cat, :count).by(-1)
+      }.to change(Cat, :count).by(-1)
     end
 
     it "redirects to the cats list" do

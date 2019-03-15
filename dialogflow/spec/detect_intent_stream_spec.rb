@@ -26,12 +26,12 @@ describe "Detect Intent Stream" do
   end
 
   example "detect intent from stream" do
-    expect do
+    expect {
       detect_intent_stream project_id:      @project_id,
                            session_id:      @session_id,
                            audio_file_path: @audio_file_path,
                            language_code:   @language_code
-    end.to output(
+    }.to output(
       /What date?/
     ).to_stdout
   end

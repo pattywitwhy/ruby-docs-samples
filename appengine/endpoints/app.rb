@@ -31,7 +31,7 @@ use Rack::Cors do
     origins "*"
     resource "/auth/info/firebase",
              headers: :any,
-             methods: %i[get post options]
+             methods: [:get, :post, :options]
   end
 end
 

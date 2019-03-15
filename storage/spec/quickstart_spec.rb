@@ -47,9 +47,9 @@ describe "Storage Quickstart" do
     expect(storage).to receive(:create_bucket).with("my-new-bucket")
                                               .and_return(bucket)
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       "Bucket #{bucket_name} was created.\n"
     ).to_stdout
 

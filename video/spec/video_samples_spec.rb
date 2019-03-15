@@ -27,9 +27,9 @@ describe "Google Cloud Video API sample" do
   end
 
   it "can analyze labels from a gcs file" do
-    expect do
+    expect {
       analyze_labels_gcs path: "gs://#{@labels_file}"
-    end.to output(
+    }.to output(
       /Label description: animal/
     ).to_stdout
   end
@@ -43,9 +43,9 @@ describe "Google Cloud Video API sample" do
         file.flush
       end
 
-      expect do
+      expect {
         analyze_labels_local path: local_tempfile.path
-      end.to output(
+      }.to output(
         /Label description: animal/
       ).to_stdout
     ensure
@@ -55,33 +55,33 @@ describe "Google Cloud Video API sample" do
   end
 
   it "can analyze explicit content from a gcs file" do
-    expect do
+    expect {
       analyze_explicit_content path: "gs://#{@safe_search_file}"
-    end.to output(
+    }.to output(
       /pornography: VERY_UNLIKELY/
     ).to_stdout
   end
 
   it "can analyze shots from a gcs file" do
-    expect do
+    expect {
       analyze_shots path: "gs://#{@shots_file}"
-    end.to output(
+    }.to output(
       /0.0 to 5/
     ).to_stdout
   end
 
   it "can transcribe speech from a gcs file" do
-    expect do
+    expect {
       transcribe_speech_gcs path: "gs://#{@transcription_file}"
-    end.to output(
+    }.to output(
       /cultural/
     ).to_stdout
   end
 
   it "can detect texts from a gcs file" do
-    expect do
+    expect {
       detect_text_gcs path: "gs://#{@transcription_file}"
-    end.to output(
+    }.to output(
       /GOOGLE/
     ).to_stdout
   end
@@ -95,9 +95,9 @@ describe "Google Cloud Video API sample" do
         file.flush
       end
 
-      expect do
+      expect {
         detect_text_local path: local_tempfile.path
-      end.to output(
+      }.to output(
         /GOOGLE/
       ).to_stdout
     ensure
@@ -107,9 +107,9 @@ describe "Google Cloud Video API sample" do
   end
 
   it "can track objects from a gcs file" do
-    expect do
+    expect {
       track_objects_gcs path: "gs://#{@labels_file}"
-    end.to output(
+    }.to output(
       /cat/
     ).to_stdout
   end
@@ -123,9 +123,9 @@ describe "Google Cloud Video API sample" do
         file.flush
       end
 
-      expect do
+      expect {
         track_objects_local path: local_tempfile.path
-      end.to output(
+      }.to output(
         /cat/
       ).to_stdout
     ensure

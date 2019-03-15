@@ -29,13 +29,13 @@ describe "DLP sample" do
   end
 
   it "can limit max findings of inspect string results" do
-    expect do
+    expect {
       inspect_string(
         project_id:   @project,
         content:      "Robert Frost is the name of poet Robert Frost",
         max_findings: 1
       )
-    end.to output(
+    }.to output(
       "Quote:      Robert Frost\n" \
       "Info type:  PERSON_NAME\n" \
       "Likelihood: LIKELY\n"

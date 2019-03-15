@@ -11,20 +11,6 @@ Lint/ShadowingOuterLocalVariable:
   Enabled: false
 Lint/UselessAssignment:
   Enabled: false
-Naming/AccessorMethodName:
-  Exclude:
-    - "firestore/add_data.rb"
-Style/BlockComments:
-  Exclude:
-    - "**/routes.rb"
-Style/GlobalVars:
-  Exclude:
-    - "kms/kms.rb"
-    - "iot/iot.rb"
-Style/MixinUsage:
-  Exclude:
-    - "appengine/rails*/**/*"
-
 Metrics/AbcSize:
   Enabled: false
 Metrics/BlockLength:
@@ -35,5 +21,24 @@ Metrics/LineLength:
   Enabled: false
 Metrics/MethodLength:
   Enabled: false
+Naming/AccessorMethodName:
+  Exclude:
+    - "firestore/add_data.rb"
+Style/BlockComments:
+  Exclude:
+    - "**/routes.rb"
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
 Style/Documentation:
   Enabled: false
+Style/GlobalVars:
+  Exclude:
+    - "kms/kms.rb"
+    - "iot/iot.rb"
+Style/MixinUsage:
+  Exclude:
+    - "appengine/rails*/**/*"
+Style/SymbolArray:
+  EnforcedStyle: brackets
+Style/WordArray:
+  EnforcedStyle: brackets

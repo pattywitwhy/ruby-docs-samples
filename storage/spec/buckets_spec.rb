@@ -62,9 +62,9 @@ describe "Google Cloud Storage buckets sample" do
   end
 
   example "list buckets" do
-    expect do
+    expect {
       list_buckets project_id: @project_id
-    end.to output(
+    }.to output(
       /#{@bucket_name}/
     ).to_stdout
   end
@@ -74,10 +74,10 @@ describe "Google Cloud Storage buckets sample" do
 
     expect(@storage.bucket(@bucket_name).requester_pays).to be true
 
-    expect do
+    expect {
       disable_requester_pays project_id:  @project_id,
                              bucket_name: @bucket_name
-    end.to output {
+    }.to output {
       /Requester pays has been disabled for #{@bucket_name}/
     }.to_stdout
 
@@ -89,10 +89,10 @@ describe "Google Cloud Storage buckets sample" do
 
     expect(@storage.bucket(@bucket_name).requester_pays).to be false
 
-    expect do
+    expect {
       enable_requester_pays project_id:  @project_id,
                             bucket_name: @bucket_name
-    end.to output {
+    }.to output {
       /Requester pays has been enabled for #{@bucket_name}/
     }.to_stdout
 
@@ -104,10 +104,10 @@ describe "Google Cloud Storage buckets sample" do
 
     expect(@storage.bucket(@bucket_name).requester_pays).to be true
 
-    expect do
+    expect {
       get_requester_pays_status project_id:  @project_id,
                                 bucket_name: @bucket_name
-    end.to output {
+    }.to output {
       /Requester Pays is enabled for #{@bucket_name}/
     }.to_stdout
   end
@@ -117,11 +117,11 @@ describe "Google Cloud Storage buckets sample" do
 
     expect(@storage.bucket(@bucket_name).default_kms_key).to be nil
 
-    expect do
+    expect {
       enable_default_kms_key project_id:      @project_id,
                              bucket_name:     @bucket_name,
                              default_kms_key: @kms_key
-    end.to output {
+    }.to output {
       /Default KMS key for #{@bucket_name} was set to #{@kms_key}/
     }.to_stdout
 
@@ -137,18 +137,18 @@ describe "Google Cloud Storage buckets sample" do
     expect(@storage.bucket(@bucket_name).retention_period).to be nil
 
     retention_period = 5 # seconds.
-    expect do
+    expect {
       set_retention_policy project_id:       @project_id,
                            bucket_name:      @bucket_name,
                            retention_period: retention_period
-    end.to output {
+    }.to output {
       /Retention period for #{@bucket_name} is now #{retention_period} seconds/
     }.to_stdout
 
-    expect do
+    expect {
       get_retention_policy project_id:  @project_id,
                            bucket_name: @bucket_name
-    end.to output {
+    }.to output {
       /period: #{retention_period}/
     }.to_stdout
 
@@ -165,10 +165,10 @@ describe "Google Cloud Storage buckets sample" do
     @storage.bucket(@bucket_name).retention_period = retention_period
     expect(@storage.bucket(@bucket_name).retention_period).to be retention_period
 
-    expect do
+    expect {
       remove_retention_policy project_id:  @project_id,
                               bucket_name: @bucket_name
-    end.to output(
+    }.to output(
       /Retention policy for #{@bucket_name} has been removed/
     ).to_stdout
 
@@ -182,10 +182,10 @@ describe "Google Cloud Storage buckets sample" do
     end
     expect(@storage.bucket(@bucket_name).default_event_based_hold?).to be false
 
-    expect do
+    expect {
       enable_default_event_based_hold project_id:  @project_id,
                                       bucket_name: @bucket_name
-    end.to output(
+    }.to output(
       /Default event-based hold was enabled for #{@bucket_name}/
     ).to_stdout
 
@@ -202,10 +202,10 @@ describe "Google Cloud Storage buckets sample" do
     end
     expect(@storage.bucket(@bucket_name).default_event_based_hold?).to be true
 
-    expect do
+    expect {
       disable_default_event_based_hold project_id:  @project_id,
                                        bucket_name: @bucket_name
-    end.to output(
+    }.to output(
       /Default event-based hold was disabled for #{@bucket_name}/
     ).to_stdout
 
@@ -216,10 +216,10 @@ describe "Google Cloud Storage buckets sample" do
     expect(@storage.bucket(@bucket_name).retention_policy_locked?).to be false
     @storage.bucket(@bucket_name).retention_period = 1
 
-    expect do
+    expect {
       lock_retention_policy project_id:  @project_id,
                             bucket_name: @bucket_name
-    end.to output(
+    }.to output(
       /Retention policy for #{@bucket_name} is now locked/
     ).to_stdout
 
@@ -235,10 +235,10 @@ describe "Google Cloud Storage buckets sample" do
 
     expect(@storage.bucket(@bucket_name)).to be nil
 
-    expect do
+    expect {
       create_bucket project_id:  @project_id,
                     bucket_name: @bucket_name
-    end.to output(
+    }.to output(
       "Created bucket: #{@bucket_name}\n"
     ).to_stdout
 
@@ -253,12 +253,12 @@ describe "Google Cloud Storage buckets sample" do
     location      = "US"
     storage_class = "STANDARD"
 
-    expect do
+    expect {
       create_bucket_class_location project_id:    @project_id,
                                    bucket_name:   @bucket_name,
                                    location:      location,
                                    storage_class: storage_class
-    end.to output(
+    }.to output(
       "Created bucket #{@bucket_name} in #{location} with #{storage_class} class\n"
     ).to_stdout
 
@@ -279,10 +279,10 @@ describe "Google Cloud Storage buckets sample" do
       bucket_update.labels[label_key] = label_value
     end
 
-    expect do
+    expect {
       list_bucket_labels project_id:  @project_id,
                          bucket_name: @bucket_name
-    end.to output(
+    }.to output(
       /#{label_key} = #{label_value}/
     ).to_stdout
   end
@@ -300,12 +300,12 @@ describe "Google Cloud Storage buckets sample" do
 
     expect(@storage.bucket(@bucket_name).labels.key?(label_key)).to be false
 
-    expect do
+    expect {
       add_bucket_label project_id:  @project_id,
                        bucket_name: @bucket_name,
                        label_key:   label_key,
                        label_value: label_value
-    end.to output(
+    }.to output(
       "Added label #{label_key} with value #{label_value} to #{@bucket_name}\n"
     ).to_stdout
 
@@ -325,11 +325,11 @@ describe "Google Cloud Storage buckets sample" do
 
     expect(@storage.bucket(@bucket_name).labels.key?(label_key)).to be true
 
-    expect do
+    expect {
       delete_bucket_label project_id:  @project_id,
                           bucket_name: @bucket_name,
                           label_key:   label_key
-    end.to output(
+    }.to output(
       "Deleted label #{label_key} from #{@bucket_name}\n"
     ).to_stdout
 
@@ -339,9 +339,9 @@ describe "Google Cloud Storage buckets sample" do
   example "delete bucket" do
     expect(@storage.bucket(@bucket_name)).not_to be nil
 
-    expect do
+    expect {
       delete_bucket project_id: @project_id, bucket_name: @bucket_name
-    end.to output(
+    }.to output(
       "Deleted bucket: #{@bucket_name}\n"
     ).to_stdout
 

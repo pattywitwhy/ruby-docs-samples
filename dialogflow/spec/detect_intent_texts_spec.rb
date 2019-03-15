@@ -27,12 +27,12 @@ describe "Detect Intent Texts" do
   end
 
   example "detect intent from texts" do
-    expect do
+    expect {
       detect_intent_texts project_id:    @project_id,
                           session_id:    @session_id,
                           texts:         @texts,
                           language_code: @language_code
-    end.to output(
+    }.to output(
       /All set!/
     ).to_stdout
   end

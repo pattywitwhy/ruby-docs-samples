@@ -29,17 +29,17 @@ describe "Google Cloud Storage buckets sample" do
   end
 
   it "implicit auth to list buckets" do
-    expect do
+    expect {
       implicit project_id: @project_id
-    end.to output(
+    }.to output(
       /#{@bucket_name}/
     ).to_stdout
   end
 
   it "explicit auth to list buckets" do
-    expect do
+    expect {
       explicit project_id: @project_id, key_file: @credentials
-    end.to output(
+    }.to output(
       /#{@bucket_name}/
     ).to_stdout
   end
@@ -51,9 +51,9 @@ describe "Google Cloud Storage buckets sample" do
     expect(env_object).to receive(:project_id).and_return @project_id
     expect(Google::Auth::GCECredentials).to receive(:new).and_return @credentials
 
-    expect do
+    expect {
       explicit_compute_engine
-    end.to output(
+    }.to output(
       /#{@bucket_name}/
     ).to_stdout
   end

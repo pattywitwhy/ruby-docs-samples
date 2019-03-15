@@ -29,9 +29,9 @@ describe "Detect Image Properties" do
   end
 
   example "detect image properties from local image file" do
-    expect do
+    expect {
       detect_image_properties image_path: image_path("otter_crossing.jpg")
-    end.to output(
+    }.to output(
       /Color 104.0, 17.0, 32.0/
     ).to_stdout
   end
@@ -40,9 +40,9 @@ describe "Detect Image Properties" do
     storage_file = @bucket.upload_file image_path("otter_crossing.jpg"),
                                        "otter_crossing.jpg"
 
-    expect do
+    expect {
       detect_image_properties_gcs image_path: storage_file.to_gs_url
-    end.to output(
+    }.to output(
       /Color 104.0, 17.0, 32.0/
     ).to_stdout
   end

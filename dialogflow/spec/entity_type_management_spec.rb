@@ -45,11 +45,11 @@ describe "Entity Type Management" do
                           display_name: @entity_type_display_name).size
     ).to eq(0)
 
-    expect do
+    expect {
       create_entity_type project_id:   @project_id,
                          display_name: @entity_type_display_name,
                          kind:         @kind
-    end.to output(
+    }.to output(
       /#{@entity_type_display_name}/
     ).to_stdout
 

@@ -29,9 +29,9 @@ describe "Detect Document Text" do
   end
 
   example "detect document text from local image file" do
-    expect do
+    expect {
       detect_document_text image_path: image_path("otter_crossing.jpg")
-    end.to output(
+    }.to output(
       /Otters/
     ).to_stdout
   end
@@ -40,9 +40,9 @@ describe "Detect Document Text" do
     storage_file = @bucket.upload_file image_path("otter_crossing.jpg"),
                                        "otter_crossing.jpg"
 
-    expect do
+    expect {
       detect_document_text_gcs image_path: storage_file.to_gs_url
-    end.to output(
+    }.to output(
       /Otters/
     ).to_stdout
   end

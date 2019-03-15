@@ -59,9 +59,9 @@ describe "Key Management Service Quickstart" do
     expect(CloudKMS::KeyManagementServiceClient).to receive(:location_path)
       .and_return(test_parent)
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       /list-#{test_project_id}/
     ).to_stdout
   end

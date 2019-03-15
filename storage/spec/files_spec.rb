@@ -112,9 +112,9 @@ describe "Google Cloud Storage files sample" do
     expect(mock_cipher).to     receive(:encrypt).and_return mock_encrypt
     expect(mock_encrypt).to    receive(:random_key).and_return @encryption_key
 
-    expect do
+    expect {
       generate_encryption_key_base64
-    end.to output {
+    }.to output {
       /Sample encryption key: #{encryption_key_base64}/
     }.to_stdout
   end
@@ -123,10 +123,10 @@ describe "Google Cloud Storage files sample" do
     upload @local_file_path, "file.txt"
     expect(@bucket.file("file.txt")).not_to be nil
 
-    expect do
+    expect {
       list_bucket_contents project_id:  @project_id,
                            bucket_name: @bucket_name
-    end.to output(
+    }.to output(
       /file\.txt/
     ).to_stdout
   end
@@ -153,12 +153,12 @@ describe "Google Cloud Storage files sample" do
     delete_file "file.txt"
     expect(@bucket.file("file.txt")).to be nil
 
-    expect do
+    expect {
       upload_file project_id:        @project_id,
                   bucket_name:       @bucket_name,
                   local_file_path:   @local_file_path,
                   storage_file_path: "file.txt"
-    end.to output(
+    }.to output(
       /Uploaded .*file.txt/
     ).to_stdout
 
@@ -170,13 +170,13 @@ describe "Google Cloud Storage files sample" do
     delete_file "file.txt"
     expect(@bucket.file("file.txt")).to be nil
 
-    expect do
+    expect {
       upload_encrypted_file project_id:        @project_id,
                             bucket_name:       @bucket_name,
                             local_file_path:   @local_file_path,
                             storage_file_path: "file.txt",
                             encryption_key:    @encryption_key
-    end.to output(
+    }.to output(
       "Uploaded file.txt with encryption key\n"
     ).to_stdout
 
@@ -189,13 +189,13 @@ describe "Google Cloud Storage files sample" do
     delete_file "file.txt"
     expect(@bucket.file("file.txt")).to be nil
 
-    expect do
+    expect {
       upload_with_kms_key project_id:        @project_id,
                           bucket_name:       @bucket_name,
                           local_file_path:   @local_file_path,
                           storage_file_path: "file.txt",
                           kms_key:           @kms_key
-    end.to output(
+    }.to output(
       /Uploaded file.txt and encrypted service side using #{@kms_key}/
     ).to_stdout
 
@@ -214,14 +214,14 @@ describe "Google Cloud Storage files sample" do
 
     upload @local_file_path, "file.txt"
 
-    expect do
+    expect {
       set_metadata project_id:     @project_id,
                    bucket_name:    @bucket_name,
                    file_name:      "file.txt",
                    content_type:   content_type,
                    metadata_key:   metadata_key,
                    metadata_value: metadata_value
-    end.to output(
+    }.to output(
       "Metadata for file.txt has been updated.\n"
     ).to_stdout
 
@@ -241,12 +241,12 @@ describe "Google Cloud Storage files sample" do
       local_file = Tempfile.new "cloud-storage-tests"
       expect(File.size(local_file.path)).to eq 0
 
-      expect do
+      expect {
         download_file project_id:  @project_id,
                       bucket_name: @bucket_name,
                       local_path:  local_file.path,
                       file_name:   "file.txt"
-      end.to output(
+      }.to output(
         "Downloaded file.txt\n"
       ).to_stdout
 
@@ -270,11 +270,11 @@ describe "Google Cloud Storage files sample" do
       local_file = Tempfile.new "cloud-storage-tests"
       expect(File.size(local_file.path)).to eq 0
 
-      expect do
+      expect {
         download_public_file bucket_name: @bucket_name,
                              file_name:   "file.txt",
                              local_path:  local_file.path
-      end.to output("Downloaded file.txt\n").to_stdout
+      }.to output("Downloaded file.txt\n").to_stdout
 
       expect(File.size(local_file.path)).to be > 0
       expect(File.read(local_file.path)).to eq(
@@ -292,12 +292,12 @@ describe "Google Cloud Storage files sample" do
 
     upload @local_file_path, "file.txt"
 
-    expect do
+    expect {
       rename_file project_id:  @project_id,
                   bucket_name: @bucket_name,
                   file_name:   "file.txt",
                   new_name:    "rename_file.txt"
-    end.to output("file.txt has been renamed to rename_file.txt\n").to_stdout
+    }.to output("file.txt has been renamed to rename_file.txt\n").to_stdout
 
     expect(@bucket.file("rename_file.txt")).not_to be nil
   end
@@ -308,13 +308,13 @@ describe "Google Cloud Storage files sample" do
 
     upload @local_file_path, "file.txt"
 
-    expect do
+    expect {
       copy_file project_id:         @project_id,
                 source_bucket_name: @bucket_name,
                 source_file_name:   "file.txt",
                 dest_bucket_name:   @bucket_name,
                 dest_file_name:     "copy_file.txt"
-    end.to output(
+    }.to output(
       "file.txt in #{@bucket_name} copied to copy_file.txt in #{@bucket_name}\n"
     ).to_stdout
 
@@ -339,12 +339,12 @@ describe "Google Cloud Storage files sample" do
         .with(project_id: @project_id_secondary)
         .and_return @storage_secondary
 
-      expect do
+      expect {
         download_file_requester_pays project_id:  @project_id_secondary,
                                      bucket_name: @bucket_name,
                                      local_path:  local_file.path,
                                      file_name:   "file.txt"
-      end.to output(
+      }.to output(
         "Downloaded file.txt using billing project #{@project_id_secondary}\n"
       ).to_stdout
 
@@ -375,12 +375,12 @@ describe "Google Cloud Storage files sample" do
         .with(project_id: @project_id_secondary)
         .and_return @storage_secondary
 
-      expect do
+      expect {
         download_file project_id:  @project_id_secondary,
                       bucket_name: @bucket_name,
                       local_path:  local_file.path,
                       file_name:   "file.txt"
-      end.to raise_error Google::Cloud::InvalidArgumentError
+      }.to raise_error Google::Cloud::InvalidArgumentError
 
       expect(File.size(local_file.path)).to be 0
     ensure
@@ -399,13 +399,13 @@ describe "Google Cloud Storage files sample" do
       local_file = Tempfile.new "cloud-storage-encryption-tests"
       expect(File.size(local_file.path)).to eq 0
 
-      expect do
+      expect {
         download_encrypted_file project_id:        @project_id,
                                 bucket_name:       @bucket_name,
                                 storage_file_path: "file.txt",
                                 local_file_path:   local_file.path,
                                 encryption_key:    @encryption_key
-      end.to output(
+      }.to output(
         "Downloaded encrypted file.txt\n"
       ).to_stdout
 
@@ -427,13 +427,13 @@ describe "Google Cloud Storage files sample" do
       local_file = Tempfile.new "cloud-storage-encryption-tests"
       expect(File.size(local_file.path)).to eq 0
 
-      expect do
+      expect {
         download_encrypted_file project_id:        @project_id,
                                 bucket_name:       @bucket_name,
                                 storage_file_path: "file.txt",
                                 local_file_path:   local_file.path,
                                 encryption_key:    generate_encryption_key
-      end.to raise_error Google::Cloud::InvalidArgumentError
+      }.to raise_error Google::Cloud::InvalidArgumentError
 
       expect(File.size(local_file.path)).to eq 0
     ensure
@@ -450,13 +450,13 @@ describe "Google Cloud Storage files sample" do
 
     new_encryption_key = generate_encryption_key
 
-    expect do
+    expect {
       rotate_encryption_key project_id:             @project_id,
                             bucket_name:            @bucket_name,
                             file_name:              "file.txt",
                             current_encryption_key: @encryption_key,
                             new_encryption_key:     new_encryption_key
-    end.to output(
+    }.to output(
       "The encryption key for file.txt in #{@bucket_name} was rotated.\n"
     ).to_stdout
 
@@ -492,11 +492,11 @@ describe "Google Cloud Storage files sample" do
 
     upload @local_file_path, event_based_hold_file
 
-    expect do
+    expect {
       set_event_based_hold project_id:  @project_id,
                            bucket_name: @bucket_name,
                            file_name:   event_based_hold_file
-    end.to output(
+    }.to output(
       /Event-based hold was set for event-based-file.txt/
     ).to_stdout
 
@@ -515,11 +515,11 @@ describe "Google Cloud Storage files sample" do
     @bucket.file(event_based_hold_file).set_event_based_hold!
     expect(@bucket.file(event_based_hold_file).event_based_hold?).to be true
 
-    expect do
+    expect {
       release_event_based_hold project_id:  @project_id,
                                bucket_name: @bucket_name,
                                file_name:   event_based_hold_file
-    end.to output(
+    }.to output(
       /Event-based hold was released for #{event_based_hold_file}/
     ).to_stdout
 
@@ -534,11 +534,11 @@ describe "Google Cloud Storage files sample" do
 
     upload @local_file_path, temporary_hold_file
 
-    expect do
+    expect {
       set_temporary_hold project_id:  @project_id,
                          bucket_name: @bucket_name,
                          file_name:   temporary_hold_file
-    end.to output(
+    }.to output(
       /Temporary hold was set for temporary-hold-file.txt/
     ).to_stdout
 
@@ -557,11 +557,11 @@ describe "Google Cloud Storage files sample" do
     @bucket.file(temporary_hold_file).set_temporary_hold!
     expect(@bucket.file(temporary_hold_file).temporary_hold?).to be true
 
-    expect do
+    expect {
       release_temporary_hold project_id:  @project_id,
                              bucket_name: @bucket_name,
                              file_name:   temporary_hold_file
-    end.to output(
+    }.to output(
       /Temporary hold was released for #{temporary_hold_file}/
     ).to_stdout
 

@@ -76,7 +76,7 @@ def multiple_cursor_conditions project_id:
   query1 = firestore.col("cities").order("name").order("state").start_at "Springfield"
 
   # Will return "Springfield, Missouri" and "Springfield, Wisconsin"
-  query2 = firestore.col("cities").order("name").order("state").start_at %w[Springfield Missouri]
+  query2 = firestore.col("cities").order("name").order("state").start_at ["Springfield", "Missouri"]
   # [END fs_multiple_cursor_conditions]
   query1.get do |city|
     puts "Document #{city.document_id} returned by start at Springfield query."

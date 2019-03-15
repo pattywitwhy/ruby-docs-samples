@@ -48,9 +48,9 @@ describe "Spanner Quickstart" do
       .with("my-instance", "my-database")
       .and_return(@database_client)
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(/1/).to_stdout
+    }.to output(/1/).to_stdout
 
     @instance.database(@database_id).drop
   end

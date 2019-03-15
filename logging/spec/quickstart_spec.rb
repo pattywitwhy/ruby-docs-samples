@@ -57,9 +57,9 @@ describe "Logging Quickstart" do
 
     expect(test_log_entries).to be_empty
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       "Logged Hello, world!\n"
     ).to_stdout
 

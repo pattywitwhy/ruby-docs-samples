@@ -65,9 +65,9 @@ describe "Entity Management" do
       delete_entity project_id: @project_id, entity_type_id: @entity_type_id,
                     entity_value: @entity_value_2
     end
-    expect do
+    expect {
       list_entities project_id: @project_id, entity_type_id: @entity_type_id
-    end.not_to output(
+    }.not_to output(
       /#{@entity_value_1}/
     ).to_stdout
   end

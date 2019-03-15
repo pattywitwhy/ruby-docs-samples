@@ -22,9 +22,9 @@ describe "Translate Quickstart" do
       .with(project: "YOUR_PROJECT_ID")
       .and_return(translate)
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       "Text: Hello, world!\n" \
       "Translation: Привет, мир!\n"
     ).to_stdout

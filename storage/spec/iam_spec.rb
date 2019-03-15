@@ -48,9 +48,9 @@ describe "Google Cloud Storage IAM sample" do
 
     expect(@bucket.policy.roles[@test_role]).to include @test_member
 
-    expect do
+    expect {
       view_bucket_iam_members project_id: @project_id, bucket_name: @bucket_name
-    end.to output(
+    }.to output(
       /#{@test_role} Members:.*#{@test_member}/
     ).to_stdout
   end
@@ -62,12 +62,12 @@ describe "Google Cloud Storage IAM sample" do
 
     expect(@bucket.policy.roles[@test_role]).to eq nil
 
-    expect do
+    expect {
       add_bucket_iam_member project_id:  @project_id,
                             bucket_name: @bucket_name,
                             role:        @test_role,
                             member:      @test_member
-    end.to output(
+    }.to output(
       /Added #{@test_member} with role #{@test_role}/
     ).to_stdout
 
@@ -81,12 +81,12 @@ describe "Google Cloud Storage IAM sample" do
 
     expect(@bucket.policy.roles[@test_role]).to include @test_member
 
-    expect do
+    expect {
       remove_bucket_iam_member project_id:  @project_id,
                                bucket_name: @bucket_name,
                                role:        @test_role,
                                member:      @test_member
-    end.to output(
+    }.to output(
       /Removed #{@test_member} with role #{@test_role}/
     ).to_stdout
 

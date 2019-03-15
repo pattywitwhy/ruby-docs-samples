@@ -70,25 +70,25 @@ describe "Cloud IoT Core" do
     topic         = create_pubsub_topic topic_name
 
     # Create a registry
-    expect do
+    expect {
       $create_registry.call(
         project_id:   @project_id,
         location_id:  @region,
         registry_id:  registry_name,
         pubsub_topic: topic.name
       )
-    end.to output(
+    }.to output(
       /Created registry/m
     ).to_stdout
 
     # Delete a registry
-    expect do
+    expect {
       $delete_registry.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: registry_name
       )
-    end.to output(
+    }.to output(
       /Deleted registry/m
     ).to_stdout
   end
@@ -108,7 +108,7 @@ describe "Cloud IoT Core" do
     # Test setting IAM permissions
     member = "group:dpebot@google.com"
     role = "roles/viewer"
-    expect do
+    expect {
       $set_iam_policy.call(
         project_id:  @project_id,
         location_id: @region,
@@ -121,7 +121,7 @@ describe "Cloud IoT Core" do
         location_id: @region,
         registry_id: registry_name
       )
-    end.to output(
+    }.to output(
       /Binding set:/m
     ).to_stdout
 
@@ -146,24 +146,24 @@ describe "Cloud IoT Core" do
     )
 
     device_id = "unauth_device"
-    expect do
+    expect {
       $create_unauth_device.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: registry_name,
         device_id:   device_id
       )
-    end.to output(
+    }.to output(
       /Device:/m
     ).to_stdout
-    expect do
+    expect {
       $delete_device.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: registry_name,
         device_id:   device_id
       )
-    end.to output(
+    }.to output(
       /Deleted device./m
     ).to_stdout
 
@@ -195,24 +195,24 @@ describe "Cloud IoT Core" do
     )
 
     # Test get config / state
-    expect do
+    expect {
       $get_device_configs.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: registry_name,
         device_id:   device_id
       )
-    end.to output(
+    }.to output(
       /Version \[1\]/m
     ).to_stdout
-    expect do
+    expect {
       $get_device_states.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: registry_name,
         device_id:   device_id
       )
-    end.to output(
+    }.to output(
       /No state messages/m
     ).to_stdout
 
@@ -244,7 +244,7 @@ describe "Cloud IoT Core" do
 
     # Test create / delete ES256 device
     device_id = "ec_device"
-    expect do
+    expect {
       $create_es_device.call(
         project_id:  @project_id,
         location_id: @region,
@@ -252,17 +252,17 @@ describe "Cloud IoT Core" do
         device_id:   device_id,
         cert_path:   resource("ec_public.pem")
       )
-    end.to output(
+    }.to output(
       /Device:/m
     ).to_stdout
-    expect do
+    expect {
       $delete_device.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: registry_name,
         device_id:   device_id
       )
-    end.to output(
+    }.to output(
       /Deleted device./m
     ).to_stdout
 
@@ -288,7 +288,7 @@ describe "Cloud IoT Core" do
 
     # Test creating / removing device with RSA cert
     device_id = "ec_device"
-    expect do
+    expect {
       $create_rsa_device.call(
         project_id:  @project_id,
         location_id: @region,
@@ -296,17 +296,17 @@ describe "Cloud IoT Core" do
         device_id:   device_id,
         cert_path:   resource("rsa_cert.pem")
       )
-    end.to output(
+    }.to output(
       /Device:/m
     ).to_stdout
-    expect do
+    expect {
       $delete_device.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: registry_name,
         device_id:   device_id
       )
-    end.to output(
+    }.to output(
       /Deleted device./m
     ).to_stdout
 
@@ -319,25 +319,25 @@ describe "Cloud IoT Core" do
   end
 
   example "List registries" do
-    expect do
+    expect {
       $list_registries.call(
         project_id:  @project_id,
         location_id: @region
       )
-    end.to output(
+    }.to output(
       /Registries:/m
     ).to_stdout
   end
 
   example "Get unknown registry registry" do
     unknown_regname = "some_unknown_registry"
-    expect do
+    expect {
       $get_registry.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: unknown_regname
       )
-    end.to raise_error(
+    }.to raise_error(
       /was not found/m
     )
   end
@@ -345,27 +345,27 @@ describe "Cloud IoT Core" do
   example "Get unknown device" do
     unknown_regname = "some_unknown_registry"
     unknown_devname = "some_unknown_device"
-    expect do
+    expect {
       $get_device.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: unknown_regname,
         device_id:   unknown_devname
       )
-    end.to raise_error(
+    }.to raise_error(
       /was not found/m
     )
   end
 
   example "List devices without registry" do
     unknown_regname = "some_unknown_registry"
-    expect do
+    expect {
       $list_devices.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: unknown_regname
       )
-    end.to raise_error(
+    }.to raise_error(
       /was not found/m
     )
   end
@@ -390,7 +390,7 @@ describe "Cloud IoT Core" do
     )
 
     # Test patching device with ES cert
-    expect do
+    expect {
       $patch_es_device.call(
         project_id:  @project_id,
         location_id: @region,
@@ -398,7 +398,7 @@ describe "Cloud IoT Core" do
         device_id:   device_id,
         cert_path:   resource("ec_public.pem")
       )
-    end.to output(
+    }.to output(
       /Device: /m
     ).to_stdout
 
@@ -436,7 +436,7 @@ describe "Cloud IoT Core" do
     )
 
     # Test patch with RSA
-    expect do
+    expect {
       $patch_rsa_device.call(
         project_id:  @project_id,
         location_id: @region,
@@ -444,7 +444,7 @@ describe "Cloud IoT Core" do
         device_id:   device_id,
         cert_path:   resource("rsa_cert.pem")
       )
-    end.to output(
+    }.to output(
       /Device: /m
     ).to_stdout
 
@@ -485,7 +485,7 @@ describe "Cloud IoT Core" do
     # Without a ruby-based device client, it's difficult to test positive; test
     # that we see the expected error condition for sending a command to a
     # non-connected device
-    expect  do
+    expect {
       $send_device_command.call(
         project_id:  @project_id,
         location_id: @region,
@@ -493,7 +493,7 @@ describe "Cloud IoT Core" do
         device_id:   device_id,
         data:        "test"
       )
-    end.to raise_error(/not subscribed to the commands topic/m)
+    }.to raise_error(/not subscribed to the commands topic/m)
 
     # Clean up resources
     $delete_device.call(
@@ -522,13 +522,13 @@ describe "Cloud IoT Core" do
       pubsub_topic: topic.name
     )
 
-    expect do
+    expect {
       $list_gateways.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: registry_name
       )
-    end.to output(
+    }.to output(
       /Gateways:/m
     ).to_stdout
 
@@ -554,7 +554,7 @@ describe "Cloud IoT Core" do
       pubsub_topic: topic.name
     )
 
-    expect do
+    expect {
       $create_gateway.call(
         project_id:  @project_id,
         location_id: @region,
@@ -563,18 +563,18 @@ describe "Cloud IoT Core" do
         cert_path:   resource("rsa_cert.pem"),
         alg:         "RS256"
       )
-    end.to output(
+    }.to output(
       /Gateway:/m
     ).to_stdout
 
-    expect do
+    expect {
       $delete_gateway.call(
         project_id:  @project_id,
         location_id: @region,
         registry_id: registry_name,
         gateway_id:  gateway_id
       )
-    end.to output(
+    }.to output(
       /Deleted gateway/m
     ).to_stdout
 
@@ -615,7 +615,7 @@ describe "Cloud IoT Core" do
       cert_path:   resource("rsa_cert.pem")
     )
 
-    expect do
+    expect {
       $bind_device_to_gateway.call(
         project_id:  @project_id,
         location_id: @region,
@@ -636,7 +636,7 @@ describe "Cloud IoT Core" do
         registry_id: registry_name,
         device_id:   device_id
       )
-    end.to output(
+    }.to output(
       /Devices/m
     ).to_stdout
 

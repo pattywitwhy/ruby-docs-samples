@@ -29,9 +29,9 @@ describe "Detect Crop Hints" do
   end
 
   example "detect crop hints from local image file" do
-    expect do
+    expect {
       detect_crop_hints image_path: image_path("otter_crossing.jpg")
-    end.to output(
+    }.to output(
       /0, 0/
     ).to_stdout
   end
@@ -40,9 +40,9 @@ describe "Detect Crop Hints" do
     storage_file = @bucket.upload_file image_path("otter_crossing.jpg"),
                                        "otter_crossing.jpg"
 
-    expect do
+    expect {
       detect_crop_hints_gcs image_path: storage_file.to_gs_url
-    end.to output(
+    }.to output(
       /0, 0/
     ).to_stdout
   end

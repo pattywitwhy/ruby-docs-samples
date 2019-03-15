@@ -22,9 +22,9 @@ describe "Speech Quickstart" do
     expect(Google::Cloud::Speech).to receive(:new)
       .and_return(speech)
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       "Transcription: how old is the Brooklyn Bridge\n"
     ).to_stdout
   end

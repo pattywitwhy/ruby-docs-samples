@@ -29,9 +29,9 @@ describe "Detect Labels" do
   end
 
   example "detect labels from local image file" do
-    expect do
+    expect {
       detect_labels image_path: image_path("otter_crossing.jpg")
-    end.to output(
+    }.to output(
       /traffic sign/i
     ).to_stdout
   end
@@ -40,14 +40,14 @@ describe "Detect Labels" do
     storage_file = @bucket.upload_file image_path("otter_crossing.jpg"),
                                        "otter_crossing.jpg"
 
-    expect do
+    expect {
       detect_labels_gcs image_path: storage_file.to_gs_url
-    end.to output(
+    }.to output(
       /traffic sign/i
     ).to_stdout
 
-    expect do
+    expect {
       detect_labels_gcs_migration
-    end.to output(/suit/i).to_stdout
+    }.to output(/suit/i).to_stdout
   end
 end

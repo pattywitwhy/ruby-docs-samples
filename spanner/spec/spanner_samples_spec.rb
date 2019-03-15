@@ -128,11 +128,11 @@ describe "Google Cloud Spanner API samples" do
     expect(client.execute("SELECT * FROM Singers").rows.count).to eq 0
     expect(client.execute("SELECT * FROM Albums").rows.count).to  eq 0
 
-    expect do
+    expect {
       insert_data project_id:  @project_id,
                   instance_id: @instance.instance_id,
                   database_id: database.database_id
-    end.to output("Inserted data\n").to_stdout
+    }.to output("Inserted data\n").to_stdout
 
     singers = client.execute("SELECT * FROM Singers").rows.to_a
     expect(singers.count).to eq 5
@@ -158,11 +158,11 @@ describe "Google Cloud Spanner API samples" do
 
     expect(client.execute("SELECT * FROM Performances").rows.count).to eq 0
 
-    expect do
+    expect {
       insert_data_with_timestamp_column project_id:  @project_id,
                                         instance_id: @instance.instance_id,
                                         database_id: database.database_id
-    end.to output("Inserted data\n").to_stdout
+    }.to output("Inserted data\n").to_stdout
 
     performances = client.execute("SELECT * FROM Performances").rows.to_a
     expect(performances.count).to eq 3
@@ -633,11 +633,11 @@ describe "Google Cloud Spanner API samples" do
       end
     end
 
-    expect do
+    expect {
       read_write_transaction project_id:  @project_id,
                              instance_id: @instance.instance_id,
                              database_id: database.database_id
-    end.to raise_error("The second album does not have enough funds to transfer")
+    }.to raise_error("The second album does not have enough funds to transfer")
   end
 
   example "query data with index" do
@@ -793,11 +793,11 @@ describe "Google Cloud Spanner API samples" do
 
     expect(client.execute("SELECT * FROM Singers").rows.count).to eq 5
 
-    expect do
+    expect {
       insert_using_dml project_id:  @project_id,
                        instance_id: @instance.instance_id,
                        database_id: database.database_id
-    end.to output("1 record inserted.\n").to_stdout
+    }.to output("1 record inserted.\n").to_stdout
 
     singers = client.execute("SELECT * FROM Singers").rows.to_a
     expect(singers.count).to eq 6
@@ -855,11 +855,11 @@ describe "Google Cloud Spanner API samples" do
 
     expect(client.execute("SELECT * FROM Singers").rows.count).to eq 5
 
-    expect do
+    expect {
       delete_using_dml project_id:  @project_id,
                        instance_id: @instance.instance_id,
                        database_id: database.database_id
-    end.to output("1 record deleted.\n").to_stdout
+    }.to output("1 record deleted.\n").to_stdout
 
     singers = client.execute("SELECT * FROM Singers").rows.to_a
     expect(singers.count).to eq 4
@@ -913,11 +913,11 @@ describe "Google Cloud Spanner API samples" do
 
     expect(client.execute("SELECT * FROM Singers").rows.count).to eq 5
 
-    expect do
+    expect {
       write_and_read_using_dml project_id:  @project_id,
                                instance_id: @instance.instance_id,
                                database_id: database.database_id
-    end.to output("1 record updated.\nTimothy Campbell\n").to_stdout
+    }.to output("1 record updated.\nTimothy Campbell\n").to_stdout
 
     singers = client.execute("SELECT * FROM Singers").rows.to_a
     expect(singers.count).to eq 6
@@ -942,11 +942,11 @@ describe "Google Cloud Spanner API samples" do
 
     expect(client.execute("SELECT * FROM Singers").rows.count).to eq 6
 
-    expect do
+    expect {
       update_using_dml_with_struct project_id:  @project_id,
                                    instance_id: @instance.instance_id,
                                    database_id: database.database_id
-    end.to output("1 record updated.\n").to_stdout
+    }.to output("1 record updated.\n").to_stdout
 
     singers = client.execute("SELECT * FROM Singers").rows.to_a
     expect(singers.count).to eq 6
@@ -967,11 +967,11 @@ describe "Google Cloud Spanner API samples" do
 
     expect(client.execute("SELECT * FROM Singers").rows.count).to eq 5
 
-    expect do
+    expect {
       write_using_dml project_id:  @project_id,
                       instance_id: @instance.instance_id,
                       database_id: database.database_id
-    end.to output("4 records inserted.\n").to_stdout
+    }.to output("4 records inserted.\n").to_stdout
 
     singers = client.execute("SELECT * FROM Singers").rows.to_a
     expect(singers.count).to eq 9
@@ -1068,11 +1068,11 @@ describe "Google Cloud Spanner API samples" do
 
     expect(client.execute("SELECT * FROM Singers").rows.count).to eq 9
 
-    expect do
+    expect {
       delete_using_partitioned_dml project_id:  @project_id,
                                    instance_id: @instance.instance_id,
                                    database_id: database.database_id
-    end.to output("4 records deleted.\n").to_stdout
+    }.to output("4 records deleted.\n").to_stdout
 
     singers = client.execute("SELECT * FROM Singers").rows.to_a
     expect(singers.count).to eq 5

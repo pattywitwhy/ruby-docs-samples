@@ -24,8 +24,8 @@ describe "Delete reference image" do
 
     output = `ruby #{snippet_filepath} #{@project_id} #{@location} #{product_id} #{reference_image_id}`
 
-    expect do
+    expect {
       @client.get_reference_image reference_image.name
-    end.to raise_error Google::Gax::RetryError
+    }.to raise_error Google::Gax::RetryError
   end
 end

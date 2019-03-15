@@ -28,9 +28,9 @@ describe "BigQuery Data Transfer Quickstart" do
       .and_return(project_path)
     )
 
-    expect do
+    expect {
       load File.expand_path("../quickstart.rb", __dir__)
-    end.to output(
+    }.to output(
       /Supported Data Sources:\n/
     ).to_stdout
   end
