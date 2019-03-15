@@ -35,6 +35,8 @@ Style/GlobalVars:
   Exclude:
     - "kms/kms.rb"
     - "iot/iot.rb"
+Style/GuardClause:
+  Enabled: false
 Style/MixinUsage:
   Exclude:
     - "appengine/rails*/**/*"
