@@ -338,7 +338,7 @@ describe "Cloud IoT Core" do
         registry_id: unknown_regname
       )
     }.to raise_error(
-      /was not found/m
+      /notFound/m
     )
   end
 
@@ -353,7 +353,7 @@ describe "Cloud IoT Core" do
         device_id:   unknown_devname
       )
     }.to raise_error(
-      /was not found/m
+      /notFound/m
     )
   end
 
@@ -366,7 +366,7 @@ describe "Cloud IoT Core" do
         registry_id: unknown_regname
       )
     }.to raise_error(
-      /was not found/m
+      /notFound/m
     )
   end
 

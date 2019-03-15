@@ -236,14 +236,11 @@ describe "Cloud Job Discovery Samples" do
                                              project_id:        @default_project_id
       sleep 10
       long_filter_result =
-        job_discovery_filters_on_long_value_custom_attribute project_id:   @default_project_id,
-                                                             company_name: company_created.name
+        job_discovery_filters_on_long_value_custom_attribute project_id:   @default_project_id
       string_filter_result =
-        job_discovery_filters_on_string_value_custom_attribute project_id:   @default_project_id,
-                                                               company_name: company_created.name
+        job_discovery_filters_on_string_value_custom_attribute project_id:   @default_project_id
       multi_filters_result =
-        job_discovery_filters_on_multi_custom_attributes project_id:   @default_project_id,
-                                                         company_name: company_created.name
+        job_discovery_filters_on_multi_custom_attributes project_id:   @default_project_id
       job_discovery_delete_job job_name: job_created.name
       job_discovery_delete_company company_name: company_created.name
       expect(long_filter_result.matching_jobs).not_to be nil
