@@ -440,13 +440,13 @@ if $PROGRAM_NAME == __FILE__
     get_default_event_based_hold project_id:  project_id,
                                  bucket_name: ARGV.shift
   when "enable_bucket_policy_only"
-    enable_bucket_policy_only project_id: project_id,
+    enable_bucket_policy_only project_id:  project_id,
                               bucket_name: ARGV.shift
   when "disable_bucket_policy_only"
-    disable_bucket_policy_only project_id: project_id,
+    disable_bucket_policy_only project_id:  project_id,
                                bucket_name: ARGV.shift
   when "get_bucket_policy_only"
-    get_bucket_policy_only project_id: project_id,
+    get_bucket_policy_only project_id:  project_id,
                            bucket_name: ARGV.shift
   else
     puts <<~USAGE

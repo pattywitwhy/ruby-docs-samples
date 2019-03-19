@@ -372,7 +372,7 @@ def speech_transcribe_multichannel audio_file_path: nil
 
   config = {
     encoding:                                :LINEAR16,
-    sample_rate_hertz:                       44100,
+    sample_rate_hertz:                       44_100,
     language_code:                           "en-US",
     audio_channel_count:                     2,
     enable_separate_recognition_per_channel: true
@@ -405,13 +405,13 @@ def speech_transcribe_multichannel_gcs storage_path: nil
 
   config = {
     encoding:                                :LINEAR16,
-    sample_rate_hertz:                       44100,
+    sample_rate_hertz:                       44_100,
     language_code:                           "en-US",
     audio_channel_count:                     2,
     enable_separate_recognition_per_channel: true
   }
 
-  audio  = { uri: storage_path }
+  audio = { uri: storage_path }
 
   response = speech.recognize config, audio
 
