@@ -917,7 +917,7 @@ describe "Google Cloud Spanner API samples" do
       write_and_read_using_dml project_id:  @project_id,
                                instance_id: @instance.instance_id,
                                database_id: database.database_id
-    }.to output("1 record updated.\nTimothy Campbell\n").to_stdout
+    }.to output(/1 record updated.\nTimothy Campbell\n/).to_stdout
 
     singers = client.execute("SELECT * FROM Singers").rows.to_a
     expect(singers.count).to eq 6
