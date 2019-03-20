@@ -34,8 +34,8 @@ def job_discovery_generate_featured_job company_name:, requisition_id:
                                 title:            " Lab Technician",
                                 company_name:     company_name,
                                 application_info: application_info,
-                                description:      "Design, develop, test, deploy, " \
-                                             "maintain and improve software."
+                                description:      "Design, develop, test, deploy, " +
+                                                  "maintain and improve software."
   # Featured job is the job with positive promotion value
   job_generated.promotion_value = 2
   puts "Featured Job generated: #{job_generated.to_json}"

@@ -14,7 +14,7 @@
 
 def job_discovery_generate_job company_name:, requisition_id:
   # [START job_discovery_generate_job]
-  # company_name   = "The resource name of the company listing the job. The format is "projects/{project_id}/companies/{company_id}""
+  # company_name   = "The resource name of the company listing the job. The format is 'projects/{project_id}/companies/{company_id}'"
   # requisition_id = "The posting ID, assigned by the client to identify a job"
 
   require "google/apis/jobs_v3"
@@ -28,8 +28,8 @@ def job_discovery_generate_job company_name:, requisition_id:
                                 employment_types: ["FULL_TIME"],
                                 language_code:    "en-US",
                                 application_info: application_info,
-                                description:      "Design, develop, test, deploy, " \
-                                             "maintain and improve software."
+                                description:      "Design, develop, test, deploy, " +
+                                                  "maintain and improve software."
 
   # set compensation to 12 USD/hour
   compensation_entry = jobs::CompensationEntry.new type:   "BASE",

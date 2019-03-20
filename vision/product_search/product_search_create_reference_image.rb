@@ -15,10 +15,11 @@
 # [START vision_product_search_create_reference_image]
 require "google/cloud/vision"
 
-def product_search_create_reference_image \
+def product_search_create_reference_image(
     project_id = "your-project-id",
     location   = "us-west1",
     product_id = "your-product-id"
+  )
 
   client = Google::Cloud::Vision::ProductSearch.new
 

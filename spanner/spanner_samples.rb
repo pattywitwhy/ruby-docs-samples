@@ -342,7 +342,7 @@ def query_with_struct project_id:, instance_id:, database_id:
   spanner = Google::Cloud::Spanner.new project: project_id
   client  = spanner.client instance_id, database_id
   client.execute(
-    "SELECT SingerId FROM Singers WHERE " \
+    "SELECT SingerId FROM Singers WHERE " +
     "(FirstName, LastName) = @name",
     params: { name: name_struct }
   ).rows.each do |row|
@@ -373,7 +373,7 @@ def query_with_array_of_struct project_id:, instance_id:, database_id:
 
   # [START spanner_query_data_with_array_of_struct]
   client.execute(
-    "SELECT SingerId FROM Singers WHERE " \
+    "SELECT SingerId FROM Singers WHERE " +
     "STRUCT<FirstName STRING, LastName STRING>(FirstName, LastName) IN UNNEST(@names)",
     params: { names: band_members }
   ).rows.each do |row|
@@ -422,8 +422,8 @@ def query_nested_struct_field project_id:, instance_id:, database_id:
   }
 
   client.execute(
-    "SELECT SingerId, @song_info.SongName " \
-    "FROM Singers WHERE STRUCT<FirstName STRING, LastName STRING>(FirstName, LastName) " \
+    "SELECT SingerId, @song_info.SongName " +
+    "FROM Singers WHERE STRUCT<FirstName STRING, LastName STRING>(FirstName, LastName) " +
     "IN UNNEST(@song_info.ArtistNames)",
     params: { song_info: song_info_struct }
   ).rows.each do |row|

@@ -58,8 +58,8 @@ def generate_encryption_key_base64
   # [END generate_encryption_key_base64]
 end
 
-def upload_file project_id:, bucket_name:, local_file_path:,
-                storage_file_path: nil
+def upload_file(project_id:, bucket_name:, local_file_path:,
+                storage_file_path: nil)
   # [START upload_file]
   # project_id        = "Your Google Cloud project ID"
   # bucket_name       = "Your Google Cloud Storage bucket name"
@@ -77,8 +77,8 @@ def upload_file project_id:, bucket_name:, local_file_path:,
   # [END upload_file]
 end
 
-def upload_encrypted_file project_id:, bucket_name:, local_file_path:,
-                          storage_file_path: nil, encryption_key:
+def upload_encrypted_file(project_id:, bucket_name:, local_file_path:,
+                          storage_file_path: nil, encryption_key:)
   # [START upload_encrypted_file]
   # project_id        = "Your Google Cloud project ID"
   # bucket_name       = "Your Google Cloud Storage bucket name"
@@ -99,8 +99,8 @@ def upload_encrypted_file project_id:, bucket_name:, local_file_path:,
   # [END upload_encrypted_file]
 end
 
-def upload_with_kms_key project_id:, bucket_name:, local_file_path:,
-                        storage_file_path: nil, kms_key:
+def upload_with_kms_key(project_id:, bucket_name:, local_file_path:,
+                        storage_file_path: nil, kms_key:)
   # [START storage_upload_with_kms_key]
   # project_id        = "Your Google Cloud project ID"
   # bucket_name       = "Your Google Cloud Storage bucket name"
@@ -177,8 +177,8 @@ def download_file_requester_pays project_id:, bucket_name:, file_name:, local_pa
   # [END download_file_requester_pays]
 end
 
-def download_encrypted_file project_id:, bucket_name:, storage_file_path:,
-                            local_file_path:, encryption_key:
+def download_encrypted_file(project_id:, bucket_name:, storage_file_path:,
+                            local_file_path:, encryption_key:)
   # [START download_encrypted_file]
   # project_id     = "Your Google Cloud project ID"
   # bucket_name    = "Your Google Cloud Storage bucket name"
@@ -323,8 +323,8 @@ def rename_file project_id:, bucket_name:, file_name:, new_name:
   # [END rename_file]
 end
 
-def copy_file project_id:, source_bucket_name:, source_file_name:,
-              dest_bucket_name:, dest_file_name:
+def copy_file(project_id:, source_bucket_name:, source_file_name:,
+              dest_bucket_name:, dest_file_name:)
   # [START copy_file]
   # project_id         = "Your Google Cloud project ID"
   # source_bucket_name = "Source bucket to copy file from"
@@ -341,13 +341,13 @@ def copy_file project_id:, source_bucket_name:, source_file_name:,
   destination_bucket = storage.bucket dest_bucket_name
   destination_file   = file.copy destination_bucket.name, dest_file_name
 
-  puts "#{file.name} in #{bucket.name} copied to " \
+  puts "#{file.name} in #{bucket.name} copied to " +
        "#{destination_file.name} in #{destination_bucket.name}"
   # [END copy_file]
 end
 
-def rotate_encryption_key project_id:, bucket_name:, file_name:,
-                          current_encryption_key:, new_encryption_key:
+def rotate_encryption_key(project_id:, bucket_name:, file_name:,
+                          current_encryption_key:, new_encryption_key:)
   # [START rotate_encryption_key]
   # project_id             = "Your Google Cloud project ID"
   # bucket_name            = "Your Google Cloud Storage bucket name"

@@ -64,7 +64,7 @@ describe "Cloud Job Discovery Samples" do
       company_generated =
         job_discovery_generate_company display_name:         "Google",
                                        external_id:          "externalId: Google #{SecureRandom.hex}",
-                                       headquarters_address: "1600 Amphitheatre Parkway " \
+                                       headquarters_address: "1600 Amphitheatre Parkway " +
                                                              "Mountain View, CA 94043"
       company_created =
         job_discovery_create_company company_to_be_created: company_generated,
@@ -94,7 +94,7 @@ describe "Cloud Job Discovery Samples" do
       company_generated =
         job_discovery_generate_company display_name:         "Google",
                                        external_id:          "externalId: Google #{SecureRandom.hex}",
-                                       headquarters_address: "1600 Amphitheatre Parkway " \
+                                       headquarters_address: "1600 Amphitheatre Parkway " +
                                                              "Mountain View, CA 94043"
       company_created =
         job_discovery_create_company company_to_be_created: company_generated,
@@ -129,7 +129,7 @@ describe "Cloud Job Discovery Samples" do
       company_generated =
         job_discovery_generate_company display_name:         "Google",
                                        external_id:          "externalId: Google #{SecureRandom.hex}",
-                                       headquarters_address: "1600 Amphitheatre Parkway " \
+                                       headquarters_address: "1600 Amphitheatre Parkway " +
                                                              "Mountain View, CA 94043"
       company_created =
         job_discovery_create_company company_to_be_created: company_generated,
@@ -159,7 +159,7 @@ describe "Cloud Job Discovery Samples" do
       company_generated =
         job_discovery_generate_company display_name:         "Google",
                                        external_id:          "externalId: Google #{SecureRandom.hex}",
-                                       headquarters_address: "1600 Amphitheatre Parkway " \
+                                       headquarters_address: "1600 Amphitheatre Parkway " +
                                                              "Mountain View, CA 94043"
       company_created =
         job_discovery_create_company company_to_be_created: company_generated,
@@ -198,7 +198,7 @@ describe "Cloud Job Discovery Samples" do
       company_generated =
         job_discovery_generate_company display_name:         "Google",
                                        external_id:          "externalId: Google #{SecureRandom.hex}",
-                                       headquarters_address: "1600 Amphitheatre Parkway " \
+                                       headquarters_address: "1600 Amphitheatre Parkway " +
                                                              "Mountain View, CA 94043"
       company_created =
         job_discovery_create_company company_to_be_created: company_generated,
@@ -224,7 +224,7 @@ describe "Cloud Job Discovery Samples" do
       company_generated =
         job_discovery_generate_company display_name:         "Google",
                                        external_id:          "externalId: Google #{SecureRandom.hex}",
-                                       headquarters_address: "1600 Amphitheatre Parkway " \
+                                       headquarters_address: "1600 Amphitheatre Parkway " +
                                                              "Mountain View, CA 94043"
       company_created =
         job_discovery_create_company company_to_be_created: company_generated,
@@ -254,7 +254,7 @@ describe "Cloud Job Discovery Samples" do
       company_generated =
         job_discovery_generate_company display_name:         "Google",
                                        external_id:          "externalId: Google #{SecureRandom.hex}",
-                                       headquarters_address: "1600 Amphitheatre Parkway " \
+                                       headquarters_address: "1600 Amphitheatre Parkway " +
                                                              "Mountain View, CA 94043"
       company_created =
         job_discovery_create_company company_to_be_created: company_generated,
@@ -279,7 +279,7 @@ describe "Cloud Job Discovery Samples" do
       company_generated =
         job_discovery_generate_company display_name:         "Google",
                                        external_id:          "externalId: Google #{SecureRandom.hex}",
-                                       headquarters_address: "1600 Amphitheatre Parkway " \
+                                       headquarters_address: "1600 Amphitheatre Parkway " +
                                                              "Mountain View, CA 94043"
       company_created =
         job_discovery_create_company company_to_be_created: company_generated,
@@ -305,7 +305,7 @@ describe "Cloud Job Discovery Samples" do
       company_generated =
         job_discovery_generate_company display_name:         "Google",
                                        external_id:          "externalId: Google #{SecureRandom.hex}",
-                                       headquarters_address: "1600 Amphitheatre Parkway " \
+                                       headquarters_address: "1600 Amphitheatre Parkway " +
                                                              "Mountain View, CA 94043"
       company_created =
         job_discovery_create_company company_to_be_created: company_generated,
@@ -354,7 +354,7 @@ describe "Cloud Job Discovery Samples" do
       company_generated =
         job_discovery_generate_company display_name:         "Google",
                                        external_id:          "externalId: Google #{SecureRandom.hex}",
-                                       headquarters_address: "1600 Amphitheatre Parkway " \
+                                       headquarters_address: "1600 Amphitheatre Parkway " +
                                                              "Mountain View, CA 94043"
       company_created =
         job_discovery_create_company company_to_be_created: company_generated,
@@ -377,7 +377,7 @@ describe "Cloud Job Discovery Samples" do
       company_generated =
         job_discovery_generate_company display_name:         "Google",
                                        external_id:          "externalId: Google #{SecureRandom.hex}",
-                                       headquarters_address: "1600 Amphitheatre Parkway " \
+                                       headquarters_address: "1600 Amphitheatre Parkway " +
                                                              "Mountain View, CA 94043"
       company_created =
         job_discovery_create_company company_to_be_created: company_generated,

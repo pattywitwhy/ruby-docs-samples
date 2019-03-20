@@ -15,10 +15,11 @@
 # [START vision_product_search_delete_product]
 require "google/cloud/vision"
 
-def product_search_delete_product \
+def product_search_delete_product(
     project_id = "your-project-id",
     location   = "us-west1",
     product_id = "your-product_id"
+  )
 
   client = Google::Cloud::Vision::ProductSearch.new
 

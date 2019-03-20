@@ -44,8 +44,8 @@ def list_intents project_id:
   # [END dialogflow_list_intents]
 end
 
-def create_intent project_id:, display_name:, message_text:,
-                  training_phrases_parts:
+def create_intent(project_id:, display_name:, message_text:,
+                  training_phrases_parts:)
   # [START dialogflow_create_intent]
   # project_id = "Your Google Cloud project ID"
   # display_name = "New Display Name"

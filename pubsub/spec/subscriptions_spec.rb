@@ -35,7 +35,7 @@ describe "Pub/Sub subscriptions sample" do
     @pull_subscription_name = "my-pull-subscription"
     @push_subscription_name = "my-push-subscription"
     @service_account        =
-      "serviceAccount:test-account@#{@pubsub.project}" \
+      "serviceAccount:test-account@#{@pubsub.project}" +
       ".iam.gserviceaccount.com"
     cleanup!
   end

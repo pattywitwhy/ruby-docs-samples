@@ -19,8 +19,8 @@ describe "DLP Quickstart" do
     expect {
       load File.expand_path("../quickstart.rb", __dir__)
     }.to output(
-      "Quote:      Robert Frost\n" \
-      "Info type:  PERSON_NAME\n" \
+      "Quote:      Robert Frost\n" +
+      "Info type:  PERSON_NAME\n" +
       "Likelihood: LIKELY\n"
     ).to_stdout
   end

@@ -38,8 +38,8 @@ class EnumeratorQueue
   end
 end
 
-def detect_intent_stream project_id:, session_id:, audio_file_path:,
-                         language_code:
+def detect_intent_stream(project_id:, session_id:, audio_file_path:,
+                         language_code:)
   # [START dialogflow_detect_intent_streaming]
   # project_id = "Your Google Cloud project ID"
   # session_id = "mysession"

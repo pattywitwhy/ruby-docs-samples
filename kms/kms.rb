@@ -159,7 +159,7 @@ $create_crypto_key_version = lambda do |project_id:, location_id:, key_ring_id:,
   # Create a new version in the crypto key
   crypto_key_version = client.create_crypto_key_version crypto_key, version_spec
 
-  puts "Created version #{crypto_key_version.name} for key " \
+  puts "Created version #{crypto_key_version.name} for key " +
        "#{crypto_key_id} in key ring #{key_ring_id}"
   # [END kms_create_cryptokey_version]
 end
@@ -186,7 +186,7 @@ $set_crypto_key_primary_version = lambda do |project_id:, location_id:, key_ring
   # Update the CryptoKey primary version
   crypto_key_version = client.update_crypto_key_primary_version crypto_key, version_id
 
-  puts "Set #{version_id} as primary version for crypto key " \
+  puts "Set #{version_id} as primary version for crypto key " +
        "#{crypto_key_id} in key ring #{key_ring_id}"
   # [END kms_set_cryptokey_primary_version]
 end
@@ -336,7 +336,7 @@ $add_member_to_key_ring_policy = lambda do |project_id:, location_id:, key_ring_
   # Update IAM policy
   client.set_iam_policy key_ring, policy
 
-  puts "Member #{member} added to policy for " \
+  puts "Member #{member} added to policy for " +
        "key ring #{key_ring_id}"
   # [END kms_add_member_to_keyring_policy]
 end
@@ -371,7 +371,7 @@ $add_member_to_crypto_key_policy = lambda do |project_id:, location_id:, key_rin
   # Update IAM policy
   client.set_iam_policy crypto_key, policy
 
-  puts "Member #{member} added to policy for " \
+  puts "Member #{member} added to policy for " +
        "crypto key #{crypto_key_id} in key ring #{key_ring_id}"
   # [END kms_add_member_to_cryptokey_policy]
 end
@@ -407,7 +407,7 @@ $remove_member_from_crypto_key_policy = lambda do |project_id:, location_id:, ke
   # Update IAM policy
   client.set_iam_policy crypto_key, policy
 
-  puts "Member #{member} removed from policy for " \
+  puts "Member #{member} removed from policy for " +
        "crypto key #{crypto_key_id} in key ring #{key_ring_id}"
   # [END kms_remove_member_from_cryptokey_policy]
 end

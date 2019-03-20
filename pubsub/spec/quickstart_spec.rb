@@ -41,7 +41,7 @@ describe "PubSub Quickstart" do
     expect {
       load File.expand_path("../quickstart.rb", __dir__)
     }.to output(
-      "Topic projects/#{pubsub.project}/" \
+      "Topic projects/#{pubsub.project}/" +
       "topics/my-new-topic created.\n"
     ).to_stdout
 

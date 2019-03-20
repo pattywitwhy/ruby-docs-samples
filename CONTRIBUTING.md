@@ -48,7 +48,8 @@ For instructions regarding development environment setup, please visit [the docu
 1. Fork the desired repo, develop and test your code changes.
 1. Ensure that your code adheres to the existing style in the sample to which
    you are contributing and that running `bundle exec rubocop` from the root
-   directory passes.
+   directory passes. Running `bundle exec rubocop -a` will attempt to autofix
+   all style issues. Use with caution as it may break things.
 1. Ensure that your code has an appropriate set of unit tests which all pass.
 1. Submit a pull request.
 

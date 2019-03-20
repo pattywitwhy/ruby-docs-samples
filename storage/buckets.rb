@@ -158,8 +158,8 @@ def create_bucket project_id:, bucket_name:
   # [END create_bucket]
 end
 
-def create_bucket_class_location project_id:, bucket_name:, location:,
-                                 storage_class:
+def create_bucket_class_location(project_id:, bucket_name:, location:,
+                                 storage_class:)
   # [START create_bucket_class_location]
   # project_id    = "Your Google Cloud project ID"
   # bucket_name   = "Name of Google Cloud Storage bucket to create"
@@ -173,7 +173,7 @@ def create_bucket_class_location project_id:, bucket_name:, location:,
                                   location:      location,
                                   storage_class: storage_class
 
-  puts "Created bucket #{bucket.name} in #{location}" \
+  puts "Created bucket #{bucket.name} in #{location}" +
        " with #{storage_class} class"
   # [END create_bucket_class_location]
 end

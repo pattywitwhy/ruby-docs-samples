@@ -22,8 +22,8 @@ describe "DLP sample" do
 
   it "can inspect name in string" do
     expect { inspect_string project_id: @project, content: "Robert Frost" }.to output(
-      "Quote:      Robert Frost\n" \
-      "Info type:  PERSON_NAME\n" \
+      "Quote:      Robert Frost\n" +
+      "Info type:  PERSON_NAME\n" +
       "Likelihood: LIKELY\n"
     ).to_stdout
   end
@@ -36,16 +36,16 @@ describe "DLP sample" do
         max_findings: 1
       )
     }.to output(
-      "Quote:      Robert Frost\n" \
-      "Info type:  PERSON_NAME\n" \
+      "Quote:      Robert Frost\n" +
+      "Info type:  PERSON_NAME\n" +
       "Likelihood: LIKELY\n"
     ).to_stdout
   end
 
   it "can inspect name in file" do
     expect { inspect_file project_id: @project, filename: "spec/data/test.txt" }.to output(
-      "Quote:      Robert Frost\n" \
-      "Info type:  PERSON_NAME\n" \
+      "Quote:      Robert Frost\n" +
+      "Info type:  PERSON_NAME\n" +
       "Likelihood: LIKELY\n"
     ).to_stdout
   end

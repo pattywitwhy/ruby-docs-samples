@@ -189,7 +189,7 @@ describe "Google Cloud Natural Language API samples" do
     output = capture do
       classify_text text_content: "Google, headquartered in Mountain View, unveiled "  \
                                   "the new Android phone at the Consumer Electronic "  \
-                                  "Show Sundar Pichai said in his keynote that users " \
+                                  "Show Sundar Pichai said in his keynote that users " +
                                   "love their new Android phones."
     end
 
@@ -199,7 +199,7 @@ describe "Google Cloud Natural Language API samples" do
   example "Classify text from a file stored in Google Cloud Storage" do
     upload "classify.txt", "Google, headquartered in Mountain View, unveiled "  \
                            "the new Android phone at the Consumer Electronic "  \
-                           "Show Sundar Pichai said in his keynote that users " \
+                           "Show Sundar Pichai said in his keynote that users " +
                            "love their new Android phones."
 
     output = capture do

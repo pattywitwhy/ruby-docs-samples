@@ -37,9 +37,9 @@ def list_session_entity_types project_id:, session_id:
   # [END dialogflow_list_session_entity_types]
 end
 
-def create_session_entity_type project_id:, session_id:,
+def create_session_entity_type(project_id:, session_id:,
                                entity_type_display_name:,
-                               entity_values:
+                               entity_values:)
   # [START dialogflow_create_session_entity_type]
   # project_id = "Your Google Cloud project ID"
   # session_id = "Existing Session ID"
@@ -68,8 +68,8 @@ def create_session_entity_type project_id:, session_id:,
   # [END dialogflow_create_session_entity_type]
 end
 
-def delete_session_entity_type project_id:, session_id:,
-                               entity_type_display_name:
+def delete_session_entity_type(project_id:, session_id:,
+                               entity_type_display_name:)
   # [START dialogflow_delete_session_entity_type]
   # project_id = "Your Google Cloud project ID"
   # session_id = "Existing Session ID"
