@@ -37,7 +37,9 @@ def create_task project_id, location_id, queue_id, payload: nil, seconds: nil
   }
 
   # Add payload to task body.
-  task[:app_engine_http_request][:body] = payload if payload
+  if payload
+    task[:app_engine_http_request][:body] = payload
+  end
 
   # Add scheduled time to task.
   if seconds
