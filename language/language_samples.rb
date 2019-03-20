@@ -79,7 +79,9 @@ def entities_from_text text_content:
   entities.each do |entity|
     puts "Entity #{entity.name} #{entity.type}"
 
-    puts "URL: #{entity.metadata['wikipedia_url']}" if entity.metadata["wikipedia_url"]
+    if entity.metadata["wikipedia_url"]
+      puts "URL: #{entity.metadata['wikipedia_url']}"
+    end
   end
   # [END language_entities_text]
 end
@@ -98,7 +100,9 @@ def entities_from_cloud_storage_file storage_path:
   entities.each do |entity|
     puts "Entity #{entity.name} #{entity.type}"
 
-    puts "URL: #{entity.metadata['wikipedia_url']}" if entity.metadata["wikipedia_url"]
+    if entity.metadata["wikipedia_url"]
+      puts "URL: #{entity.metadata['wikipedia_url']}"
+    end
   end
   # [END language_entities_gcs]
 end

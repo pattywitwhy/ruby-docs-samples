@@ -98,4 +98,6 @@ def run_auto_complete_sample arguments
   end
 end
 
-run_auto_complete_sample ARGV if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  run_auto_complete_sample ARGV
+end

@@ -214,4 +214,6 @@ def run_basic_job_sample arguments
   end
 end
 
-run_basic_job_sample ARGV if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  run_basic_job_sample ARGV
+end

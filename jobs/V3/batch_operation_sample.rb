@@ -252,4 +252,6 @@ def run_batch_operation_sample arguments
   end
 end
 
-run_batch_operation_sample ARGV if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  run_batch_operation_sample ARGV
+end

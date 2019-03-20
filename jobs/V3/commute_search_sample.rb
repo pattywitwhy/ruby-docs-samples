@@ -75,4 +75,6 @@ def run_commute_search_sample arguments
   end
 end
 
-run_commute_search_sample ARGV if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  run_commute_search_sample ARGV
+end

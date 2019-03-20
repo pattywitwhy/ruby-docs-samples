@@ -31,10 +31,13 @@ def list_contexts project_id:, session_id:
   contexts.each do |context|
     puts "Context name:   #{context.name}"
     puts "Lifespan count: #{context.lifespan_count}"
-    next unless context.parameters
-    puts "Fields:"
-    context.parameters.fields.each do |field, value|
-      puts "\t#{field}: #{value.string_value}" if value.string_value
+    if context.parameters
+      puts "Fields:"
+      context.parameters.fields.each do |field, value|
+        if value.string_value
+          puts "\t#{field}: #{value.string_value}"
+        end
+      end
     end
   end
   # [END dialogflow_list_contexts]

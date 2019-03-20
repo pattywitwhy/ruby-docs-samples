@@ -68,4 +68,6 @@ def run_email_alert_search_sample arguments
   end
 end
 
-run_email_alert_search_sample ARGV if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  run_email_alert_search_sample ARGV
+end

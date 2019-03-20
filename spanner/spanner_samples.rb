@@ -661,7 +661,9 @@ def spanner_batch_client project_id:, instance_id:, database_id:
 
   # Collect statistics for batch query
   average_records_per_partition = 0.0
-  average_records_per_partition = total_records.value.to_f / total_partitions.to_f if total_partitions != 0
+  if total_partitions != 0
+    average_records_per_partition = total_records.value.to_f / total_partitions.to_f
+  end
 
   puts "Total Partitions: #{total_partitions}"
   puts "Total Records: #{total_records.value}"
@@ -980,4 +982,6 @@ def run_sample arguments
   end
 end
 
-run_sample ARGV if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  run_sample ARGV
+end

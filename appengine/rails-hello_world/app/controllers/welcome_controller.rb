@@ -13,5 +13,6 @@
 # limitations under the License.
 
 class WelcomeController < ApplicationController
-  def index; end
+  def index
+  end
 end

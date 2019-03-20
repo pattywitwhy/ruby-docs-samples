@@ -23,7 +23,8 @@ class CatsController < ApplicationController
 
   # GET /cats/1
   # GET /cats/1.json
-  def show; end
+  def show
+  end
 
   # GET /cats/new
   def new
@@ -31,7 +32,8 @@ class CatsController < ApplicationController
   end
 
   # GET /cats/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /cats
   # POST /cats.json

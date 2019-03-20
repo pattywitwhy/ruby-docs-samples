@@ -861,7 +861,9 @@ $list_gateways = lambda do |project_id:, location_id:, registry_id:|
   puts "Gateways:"
   if gateways.devices&.any?
     gateways.devices.each do |gateway|
-      puts "\t#{gateway.id}" if gateway.gateway_config && gateway.gateway_config.gateway_type == "GATEWAY"
+      if gateway.gateway_config && gateway.gateway_config.gateway_type == "GATEWAY"
+        puts "\t#{gateway.id}"
+      end
     end
   else
     puts "\tNo gateways found in this registry."
@@ -1093,4 +1095,6 @@ def run_sample arguments
   end
 end
 
-run_sample ARGV if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  run_sample ARGV
+end

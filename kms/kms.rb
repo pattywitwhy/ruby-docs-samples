@@ -401,7 +401,9 @@ $remove_member_from_crypto_key_policy = lambda do |project_id:, location_id:, ke
 
   # Remove a member from current bindings
   policy.bindings.each do |binding|
-    binding.members.delete member if binding.role == role
+    if binding.role == role
+      binding.members.delete member
+    end
   end
 
   # Update IAM policy
@@ -583,4 +585,6 @@ def run_sample arguments
   end
 end
 
-run_sample ARGV if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  run_sample ARGV
+end

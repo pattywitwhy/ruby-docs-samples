@@ -31,11 +31,15 @@ Style/BlockDelimiters:
   EnforcedStyle: braces_for_chaining
 Style/Documentation:
   Enabled: false
+Style/EmptyMethod:
+  EnforcedStyle: expanded
 Style/GlobalVars:
   Exclude:
     - "kms/kms.rb"
     - "iot/iot.rb"
 Style/GuardClause:
+  Enabled: false
+Style/IfUnlessModifier:
   Enabled: false
 Style/LineEndConcatenation:
   Enabled: false
@@ -44,6 +48,8 @@ Style/MethodDefParentheses:
 Style/MixinUsage:
   Exclude:
     - "appengine/rails*/**/*"
+Style/Next:
+  Enabled: false
 Style/SymbolArray:
   EnforcedStyle: brackets
 Style/WordArray:

@@ -41,4 +41,6 @@ def main
   rpc_server.run_till_terminated
 end
 
-main if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  main
+end

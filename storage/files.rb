@@ -586,4 +586,6 @@ def run_sample arguments
   end
 end
 
-run_sample ARGV if $PROGRAM_NAME == __FILE__
+if $PROGRAM_NAME == __FILE__
+  run_sample ARGV
+end
