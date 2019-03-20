@@ -32,7 +32,7 @@ describe "Detect Intent Audio" do
                           audio_file_path: @audio_file_path,
                           language_code:   @language_code
     }.to output(
-      /Where would you like to reserve a room?/
+      /Where would you like to reserve a room/
     ).to_stdout
   end
 end
